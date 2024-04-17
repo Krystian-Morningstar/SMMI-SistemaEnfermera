@@ -1,0 +1,13 @@
+<section>
+    <div class="listContainer">
+        <div class="reportContainer" *ngFor="let report of reportList">
+            <div class="title"><h1>Reporte de alarma</h1></div>
+            <div class="information">
+                <p class="hour">Hora de alarma: <span>{{report.hour}}</span></p>
+                <p class="date">Fecha de alarma: <span>{{report.date}}</span></p>
+                <p>Evento crítico: <span>{{report.event}}</span></p>
+                <p>Acciones tomadas: <span>{{report.actions}}</span></p>
+            </div>
+        </div>
+    </div>
+</section>

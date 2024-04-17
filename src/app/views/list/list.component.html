@@ -1,0 +1,23 @@
+<section>
+    <div class="listContainer">
+        <div class="pacientContainer" *ngFor="let pacient of list; index as i" (click)="showDetails(i)">
+            <div class="information">
+                <div class="title"><h2>Habitación {{i + 1}}</h2></div>
+                <div class="content">
+                    <h3>{{pacient.name}}</h3><br>
+                    <table class="sensores">
+                        <tr>
+                            <td>Temperatura: {{pacient.temperature}}</td>
+                            <td>Oxigeno: {{pacient.oxigen}}</td>
+                        </tr>
+                        <tr>
+                            <td>Presion: {{pacient.pressure}}</td>
+                            <td>R. cardiaco: {{pacient.rhythm}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="alert"></div>
+        </div>
+    </div>
+</section>
