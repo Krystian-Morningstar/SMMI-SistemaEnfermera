@@ -36,13 +36,20 @@ p{
     display: inline-block;
 }
 
-p.date{
-    float: right;
-    width: 50%;
+div.hourDate{
+    width: 100%;
+}
+
+p.info{
+    display: block;
+}
+
+p.hour,.date{
+    width: 40%;
 }
 
 p.hour{
-    width: 50%;
+    
 }
 
 @media only screen and (min-width: 600px){

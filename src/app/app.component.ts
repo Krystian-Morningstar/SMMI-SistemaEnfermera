@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { LoginComponent } from './views/login/login.component';
 import { DangerComponent } from './views/danger/danger.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, DangerComponent],
+  imports: [RouterOutlet, DangerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
 export class AppComponent {
   
-  isLogged = false;
+  isLogged = true;
   danger = false;
   userTab = false;
 
