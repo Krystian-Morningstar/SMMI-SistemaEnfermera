@@ -1,0 +1,17 @@
+<section class="login">
+    <div class="formContainer">
+        <div class="logo" id="loginLogo">
+            <h2>Iniciar sesión</h2>
+            <img src="assets/img/logo.png" alt="logo" id="formLogo">
+        </div>
+        <div class="form">
+            <form #form="ngForm" (ngSubmit)="loginProcess(form)">
+                <label class="loginForm" for="matricula">Matrícula</label>
+                <input class="loginForm" type="text" name="matricula" ngModel><br>
+                <label class="loginForm" for="contraseña">Contraseña</label>
+                <input class="loginForm" type="password" name="contraseña" ngModel><br>
+                <input class="loginButton" type="submit" value="Iniciar sesión">
+            </form>
+        </div>
+    </div>
+</section>

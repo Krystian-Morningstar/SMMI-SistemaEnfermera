@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { reports } from '../../modules/report.model';
+import { reports } from '../../modules/examples/report.model';
 import { NgFor } from '@angular/common';
 
 @Component({

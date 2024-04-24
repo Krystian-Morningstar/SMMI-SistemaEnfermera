@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { pacients } from '../../modules/pacient.model';
+import { pacients } from '../../modules/examples/pacient.model';
 import { NgFor } from '@angular/common';
 
 @Component({

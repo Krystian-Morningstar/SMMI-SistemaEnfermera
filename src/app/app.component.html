@@ -1,56 +1,16 @@
 <main>
-  @if (isLogged == true){
-    @if (userTab == true){
-      <section class="user" (mouseleave)="closeTab()">
-        <div class="userIcon">
-            <i class="fa fa-user-circle"></i>
-        </div>
-        <div class="userInfo">
-            <p>Megan</p>
-            <p>S21006789</p>
-            <p>Enfermera</p>
-        </div>
-        <div class="exit">
-            <button (click)="exit()" class="exit">
-                <i class="fa fa-arrow-circle-left"></i>
-            </button>
-        </div>
-      </section>
+  @if (isLogged() == true){
+    @if (userTab() == true){
+      <app-user-tab class="userTab"></app-user-tab>
     }
-    <section class="header">
-      <div class="logo" id="headerLogo">
-        <img src="assets/img/logo.png" alt="logo" class="headerLogo">
-        <div class="smmi">
-          <h1>SMMI</h1>
-        </div>
-      </div>
-      <div class="userDiv">
-        <button (click)="openTab()" class="userButton"><i class='fa fa-user'></i></button>
-      </div>
-    </section>
+    <app-header class="header"></app-header>
     <router-outlet class="container">
       @if (danger == true){
-        <app-danger></app-danger>
+        <app-danger class="danger"></app-danger>
       }
     </router-outlet>
   }
   @else {
-    <section class="login">
-      <div class="formContainer">
-          <div class="logo" id="loginLogo">
-              <h2>Iniciar sesión</h2>
-              <img src="assets/img/logo.png" alt="logo" id="formLogo">
-          </div>
-          <div class="form">
-              <form>
-                  <label class="loginForm" for="tuition">Matrícula</label>
-                  <input class="loginForm" type="text" name="tuition"><br>
-                  <label class="loginForm" for="password">Contraseña</label>
-                  <input class="loginForm" type="password" name="password"><br>
-                  <input class="loginButton" type="submit" value="Iniciar sesión">
-              </form>
-          </div>
-      </div>
-    </section>
+    <app-login></app-login>
   }
 </main>

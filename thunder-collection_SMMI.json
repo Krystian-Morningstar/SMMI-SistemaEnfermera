@@ -1,0 +1,222 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "SMMI",
+    "dateExported": "2024-04-19T11:00:47.731Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "f6a46e71-aa71-43de-afee-9014ba2d7113",
+            "name": "Medico",
+            "containerId": "",
+            "created": "2024-04-01T04:15:11.348Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "56bba5fd-22ba-4ecc-8db3-138d2460d7b9",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2024-04-11T17:52:32.653Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "e149efcf-8c79-4bd3-acab-a69962027246",
+            "name": "Especialidades",
+            "containerId": "",
+            "created": "2024-04-14T06:05:57.976Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "27a32b23-1f7d-4fe9-a43e-f89edbbe25ea",
+            "name": "Enfermeras",
+            "containerId": "",
+            "created": "2024-04-18T07:13:09.435Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "94f5aa50-172d-47f7-baa7-e55ae0f3edc0",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "f6a46e71-aa71-43de-afee-9014ba2d7113",
+            "name": "PostMedicos",
+            "url": "http://localhost:3000/api/medicos",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-04-01T04:15:30.306Z",
+            "modified": "2024-04-18T01:35:23.877Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"5559876543\",\n  \"curp\": \"MQLO100405HDFRPN09\",\n  \"genero\": \"M\",\n  \"cedula\": \"20345678\",\n  \"contrasena\": \"segura123\",\n  \"id_especialidades\": [1]\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ee4d4ccc-ae27-4fa9-9ff7-2e3f87fb3534",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "f6a46e71-aa71-43de-afee-9014ba2d7113",
+            "name": "Get un Medico",
+            "url": "http://localhost:3000/api/medicos/M36925G",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-04-11T07:09:19.808Z",
+            "modified": "2024-04-14T00:04:36.699Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "982d76c8-9173-4601-add2-421efa7dab3b",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "56bba5fd-22ba-4ecc-8db3-138d2460d7b9",
+            "name": "auth-medico",
+            "url": "http://localhost:3000/api/auth/register/medico",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-04-11T17:52:43.121Z",
+            "modified": "2024-04-18T08:11:16.381Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1059876543\",\n  \"curp\": \"SOPJ900405HDFRPN09\",\n  \"genero\": \"M\",\n  \"cedula\": \"81245679\",\n  \"contrasena\": \"segura123\",\n  \"id_especialidades\": [1],\n  \"url_img\":\"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffotografiamejorparavendermas.com%2Fla-importancia-de-la-imagen%2F&psig=AOvVaw01uJbotrQvU_UTdHOZz6-L&ust=1713514234403000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCiyoyoy4UDFQAAAAAdAAAAABAJ\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "19669e52-d74f-4357-a1a9-ec4a70bc9ccc",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "56bba5fd-22ba-4ecc-8db3-138d2460d7b9",
+            "name": "login-doctor",
+            "url": "http://localhost:3000/api/auth/login",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-04-12T08:02:54.268Z",
+            "modified": "2024-04-18T11:17:55.537Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"matricula\":\"M81245S\",\n  \"contraseña\":\"segu2a123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "877a0455-61af-4804-af08-3521e0f9be07",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "f6a46e71-aa71-43de-afee-9014ba2d7113",
+            "name": "getAll Medicos",
+            "url": "http://localhost:3000/api/medicos",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-04-14T00:25:24.849Z",
+            "modified": "2024-04-14T00:25:53.919Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f240022d-5cb0-4916-aa3e-ff5a2c46c5df",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "e149efcf-8c79-4bd3-acab-a69962027246",
+            "name": "create ",
+            "url": "https://smmi-api-production.up.railway.app/api/especialidades",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-04-14T06:06:27.352Z",
+            "modified": "2024-04-19T10:40:34.534Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\":\"Odontologia\",\n  \"descripcion\":\"Nose algo de odontologo \"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8c9bd5e0-296a-485b-a4b6-175e85b0f4f7",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "e149efcf-8c79-4bd3-acab-a69962027246",
+            "name": "getOne id",
+            "url": "http://localhost:3000/api/especialidades/1",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-04-14T06:15:29.213Z",
+            "modified": "2024-04-18T01:59:43.704Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "854c93cf-7e88-4b19-8cf2-bf5a87ac5ca1",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "e149efcf-8c79-4bd3-acab-a69962027246",
+            "name": "get All",
+            "url": "http://localhost:3000/api/especialidades",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-04-14T08:44:06.275Z",
+            "modified": "2024-04-14T08:44:12.276Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b51d2b1b-5630-49e6-9ca5-7f26357a9718",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "27a32b23-1f7d-4fe9-a43e-f89edbbe25ea",
+            "name": "create Enfermera",
+            "url": "http://localhost:3000/api/enfermeras",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-04-18T07:13:17.293Z",
+            "modified": "2024-04-18T07:27:12.023Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1559876543\",\n  \"curp\": \"POPO100405HDFRPN09\",\n  \"genero\": \"M\",\n  \"cedula\": \"20345678\",\n  \"contrasena\": \"segura123\",\n  \"hab_tecnicas\": [\"sabe cosinar \"]\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b7414d6d-93ce-4680-9f76-6ba54da36368",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "56bba5fd-22ba-4ecc-8db3-138d2460d7b9",
+            "name": "register enfermera",
+            "url": "http://localhost:3000/api/auth/register/enfermera",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-04-18T10:53:29.125Z",
+            "modified": "2024-04-18T11:07:31.204Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1059876543\",\n  \"curp\": \"SOPJ900405HDFRPN08\",\n  \"genero\": \"M\",\n  \"cedula\": \"81245679\",\n  \"contrasena\": \"segura123\",\n  \n  \"url_img\":\"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffotografiamejorparavendermas.com%2Fla-importancia-de-la-imagen%2F&psig=AOvVaw01uJbotrQvU_UTdHOZz6-L&ust=1713514234403000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCiyoyoy4UDFQAAAAAdAAAAABAJ\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a2b95cc6-6480-4900-add5-4bdfbf795dfd",
+            "colId": "6bf38f0a-74c1-4960-b12e-fddd5a70c569",
+            "containerId": "27a32b23-1f7d-4fe9-a43e-f89edbbe25ea",
+            "name": "get One ",
+            "url": "http://localhost:3000/api/enfermeras/SOPJ900405HDFRPN08",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-04-18T11:04:55.026Z",
+            "modified": "2024-04-18T11:21:09.075Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

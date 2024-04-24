@@ -1,0 +1,90 @@
+*{
+    box-sizing: border-box;
+}
+
+section.login{
+    width: 100%;
+    height: 100%;
+    padding-top: 3%;
+    justify-content: center;
+    align-items: center;
+    background-color: #4A6B45;
+}
+
+div.formContainer{
+    width: 370px;
+    height: 520px;
+    margin: auto;
+    background-color: #dad9f7;
+    border-radius: 3.5%;
+}
+
+#loginLogo{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 40px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#formLogo{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+form{
+    padding-left: 10px;
+}
+
+input{
+    width: 60%;
+    height: 30px;
+    display: block;
+    margin: auto;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 1px 1px 2px 0.2px;
+}
+
+label{
+    width: fit-content;
+    display: block;
+    margin: auto;
+    font-size: x-large;
+}
+
+input.loginButton{
+    width: 40%;
+    height: 40px;
+    background-color: #679C5A;
+    color: white;
+    font-size: large;
+}
+
+@media only screen and (max-width: 600px){
+    div.formContainer{
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        margin-top: 10%;
+        margin-bottom: 10%;
+        border-radius: 15px
+    }
+
+    input{
+        width: 80%;
+        margin-bottom: 10px;
+    }
+    
+    label{
+        font-weight: lighter;
+    }
+    
+    input.loginButton{
+        width: 50%;
+        height: 50px;
+        margin-top: 20px;
+    }
+}
