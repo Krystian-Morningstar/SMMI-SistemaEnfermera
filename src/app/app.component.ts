@@ -6,7 +6,7 @@ import { DangerComponent } from './views/danger/danger.component';
 import { LoginComponent } from './views/login/login.component';
 import { UserTabComponent } from './views/user-tab/user-tab.component';
 import { HeaderComponent } from './views/header/header.component';
-import { getLoggedStatus, getUserTabStatus } from './modules/appModel.model';
+import { getLoggedStatus, getUserTabStatus } from './models/basicVariables.model';
 
 @Component({
   selector: 'app-root',

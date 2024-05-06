@@ -1,6 +1,8 @@
-import { Injectable, isStandalone } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Usuario } from '../models/user.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,9 @@ export class AuthService {
     this.baseUrl = "https://smmi-api-production.up.railway.app/api/auth/login"
   }
   
-  login(data: any): Observable<any>{
+  login(user: any): Observable<any>{
     console.log("i am serving")
-    return this.http.post(`${this.baseUrl}`, data)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+    return this.http.post(`${this.baseUrl}`, user, {headers: headers})
   }
 }

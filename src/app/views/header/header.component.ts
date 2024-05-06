@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { switchTab } from '../../modules/appModel.model';
+import { switchTab } from '../../models/basicVariables.model';
 
 @Component({
   selector: 'app-header',

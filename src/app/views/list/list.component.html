@@ -1,22 +1,38 @@
 <section>
-    <div class="listContainer">
-        <div class="pacientContainer" *ngFor="let pacient of list; index as i" (click)="showDetails(i)">
-            <div class="information">
-                <div class="title"><h2>Habitación {{i + 1}}</h2></div>
-                <div class="content">
-                    <h3>{{pacient.name}}</h3><br>
+    @if (loading == true){
+        <div class="loadingState">
+            <h2 class="loading">Cargando datos...</h2>
+            <img id="cargandoGif" src="assets/gif/cargando.gif" alt="cargando">
+        </div>
+    }
+    @else{
+        @if (blankspace == false){
+            <div class="listContainer">
+                <div class="pacientContainer" *ngFor="let pacient of allRooms" (click)="showDetails(pacient.id_ingreso)">
+                    <div class="title"><h2>Habitación {{pacient.id_habitacion.id_habitacion}}</h2></div>
+                    <div class="information">
+                        <div class="name">
+                            <h3>{{pacient.nombres}} {{pacient.apellidos}}</h3><br>
+                        </div>
+                        <table class="sensores">
+                            <tr>
+                                <td>Temperatura: </td>
+                                <td>Oxigeno: </td>
+                            </tr>
+                            <tr>
+                                <td>Presion: </td>
+                                <td>R. cardiaco: </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <table class="sensores">
-                <tr>
-                    <td>Temperatura: {{pacient.temperature}}</td>
-                    <td>Oxigeno: {{pacient.oxigen}}</td>
-                </tr>
-                <tr>
-                    <td>Presion: {{pacient.pressure}}</td>
-                    <td>R. cardiaco: {{pacient.rhythm}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+        }
+        @else{
+            <div class="blankspace">
+                <h2 class="bsTitle">No tiene pacientes asignados en este momento</h2>
+                <img id="cajaVacia" src="assets/icon/caja.png" alt="vacío">
+            </div>
+        }
+    }
 </section>

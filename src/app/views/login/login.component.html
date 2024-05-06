@@ -7,9 +7,9 @@
         <div class="form">
             <form #form="ngForm" (ngSubmit)="loginProcess(form)">
                 <label class="loginForm" for="matricula">Matrícula</label>
-                <input class="loginForm" type="text" name="matricula" ngModel><br>
+                <input class="loginForm" type="text" name="matricula" placeholder="matrícula" ngModel><br>
                 <label class="loginForm" for="contraseña">Contraseña</label>
-                <input class="loginForm" type="password" name="contraseña" ngModel><br>
+                <input class="loginForm" type="password" name="contraseña" placeholder="contraseña" ngModel><br>
                 <input class="loginButton" type="submit" value="Iniciar sesión">
             </form>
         </div>

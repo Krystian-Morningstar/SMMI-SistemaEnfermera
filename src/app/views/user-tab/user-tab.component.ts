@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { logout, switchTab } from '../../modules/appModel.model';
+import { logout, switchTab } from '../../models/basicVariables.model';
 
 @Component({
   selector: 'app-user-tab',

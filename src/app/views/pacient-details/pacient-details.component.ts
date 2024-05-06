@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { pacients } from '../../modules/examples/pacient.model';
+import { pacients } from '../../models/examples/pacient.model';
 import { Router } from '@angular/router';
 
 @Component({
