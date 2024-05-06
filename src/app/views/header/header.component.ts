@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { switchTab } from '../../models/basicVariables.model';
+import { BasicVariablesService } from '../../services/basic-variables.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,9 @@ import { switchTab } from '../../models/basicVariables.model';
 })
 export class HeaderComponent {
 
+  constructor(private basic: BasicVariablesService){}
+
   openTab(){
-    switchTab()
+    this.basic.switchTab()
   }
 }

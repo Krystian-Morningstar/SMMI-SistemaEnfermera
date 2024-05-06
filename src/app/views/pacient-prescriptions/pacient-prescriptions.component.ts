@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { prescriptions } from '../../models/examples/prescription.model';
+import { prescriptions } from '../../models/test/prescription.model';
 
 @Component({
   selector: 'app-pacient-prescriptions',

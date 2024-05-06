@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { logout, switchTab } from '../../models/basicVariables.model';
+import { BasicVariablesService } from '../../services/basic-variables.service';
 
 @Component({
   selector: 'app-user-tab',
@@ -11,11 +11,13 @@ import { logout, switchTab } from '../../models/basicVariables.model';
 })
 export class UserTabComponent {
 
+  constructor(private basic: BasicVariablesService){}
+
   exit(){
-    logout()
+    this.basic.logout()
   }
 
   closeTab(){
-    switchTab()
+    this.basic.switchTab()
   }
 }

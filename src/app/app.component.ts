@@ -1,12 +1,12 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 import { DangerComponent } from './views/danger/danger.component';
 import { LoginComponent } from './views/login/login.component';
 import { UserTabComponent } from './views/user-tab/user-tab.component';
 import { HeaderComponent } from './views/header/header.component';
-import { getLoggedStatus, getUserTabStatus } from './models/basicVariables.model';
+
+import { BasicVariablesService } from './services/basic-variables.service';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +19,11 @@ import { getLoggedStatus, getUserTabStatus } from './models/basicVariables.model
 })
 
 export class AppComponent {
+
+  constructor(private basic: BasicVariablesService){}
   
-  isLogged = computed(()=> getLoggedStatus())
+  isLogged = computed(()=> this.basic.getLogStatus())
   danger = false;
-  userTab = computed(()=> getUserTabStatus())
+  userTab = computed(()=> this.basic.getUserTabStatus())
 
 }
