@@ -1,0 +1,16 @@
+<section>
+    <div class="listContainer">
+        <div class="prescriptionContainer" *ngFor="let pres of prescriptionList">
+            <div class="title"><h1>Receta médica</h1></div>
+            <div class="information">
+                <div class="hourDate">
+                    <p>Hora: <span>{{pres.hour}}</span></p>
+                    <p>Fecha: <span>{{pres.date}}</span></p>
+                </div>
+                <p class="info">Doctor: <span>{{pres.doctor_name}}</span></p>
+                <p class="info">Medicamento: <span>{{pres.medicine}}</span></p>
+                <p class="info">Indicaciones adicionales: <span>{{pres.indications}}</span></p>
+            </div>
+        </div>
+    </div>
+</section>

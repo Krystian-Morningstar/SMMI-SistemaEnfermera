@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
+
+import { BasicVariablesService } from './services/basic-variables.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'SMMI-Enfermera';
+  constructor(private basic: BasicVariablesService){}
+  
+  isLogged = computed(()=> this.basic.getLogStatus())
+  danger = false;
+  userTab = computed(()=> this.basic.getUserTabStatus())
 }

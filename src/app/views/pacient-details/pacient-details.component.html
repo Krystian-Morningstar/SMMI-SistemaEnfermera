@@ -1,0 +1,46 @@
+<section>
+    <div class="loadingState" *ngIf="loading; else loaded">
+        <h2 class="loading">Cargando datos...</h2>
+        <img id="cargandoGif" src="assets/gif/cargando.gif" alt="cargando">
+    </div>
+    <ng-template #loaded class="ready">
+        <div class="detailsContainer">
+            <div class="header">
+                <h2>Habitación {{ pacientDetails.id_habitacion.id_habitacion }}</h2>
+            </div>
+            <div class="details">
+                <div class="information">
+                    <p class="name">Nombre: <span>{{pacientDetails.nombres}}</span></p>
+                    <p class="age">Edad: <span>{{pacientDetails.edad}}</span></p>
+                    <br>
+                    <p class="suffering">Padecimiento: <span>{{pacientDetails.padecimientos}}</span></p>
+                    <br>
+                    <p class="sex">Sexo: <span>{{pacientDetails.sexo}}</span></p>
+                    <p class="allergies">Alergias: <span>{{pacientDetails.alergias}}</span></p>
+                    <br>
+                    <p class="cause">Causa de ingreso: <span>{{pacientDetails.causa_ingreso}}</span></p>
+                    <br>
+                    <p class="specialty">Especialidad asignada: <span>{{pacientDetails.id_especialidad.nombre}}</span></p>
+                </div>
+                <div class="graphics">
+                    <div class="temperature">
+                        <h3>Temperatura</h3>
+                    </div>
+                    <div class="oxigen">
+                        <h3>Oxígeno</h3>
+                    </div>
+                    <div class="pressure">
+                        <h3>Presión</h3>
+                    </div>
+                    <div class="rhythm">
+                        <h3>R. Cardiaco</h3>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button (click)="showPrescriptions()">Recetas</button>
+                    <button (click)="showReports()">Reportes</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</section>

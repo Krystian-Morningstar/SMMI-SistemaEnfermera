@@ -1,0 +1,27 @@
+<section class="loadingState" >
+        <div class="loadingState" *ngIf="loading; else loaded">
+            <h2 class="loading">Cargando datos...</h2>
+            <img id="cargandoGif" src="assets/gif/cargando.gif" alt="cargando">
+        </div>
+        <ng-template #loaded class="ready">
+            <div class="listContainer" *ngIf="!blankspace">
+                <div class="pacientContainer" *ngFor="let pacient of allRooms" (click)="showDetails(pacient.id_ingreso)">
+                    <div class="title"><h2>Habitación {{pacient.id_habitacion.id_habitacion}}</h2></div>
+                    <div class="information">
+                        <div class="name">
+                            <h3>{{pacient.nombres}} {{pacient.apellidos}}</h3><br>
+                        </div>
+                        <div class="sensorList">
+                            <div class="sensorContainer" *ngFor="let sensor of sensorsList">
+                                <h4>{{sensor.nombre}}: <span class="sensorContent"></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blankspace" *ngIf="blankspace">
+                <h2 class="bsTitle">No tiene pacientes asignados en este momento</h2>
+                <img id="cajaVacia" src="assets/icon/caja.png" alt="vacío">
+            </div>
+        </ng-template>
+</section>
