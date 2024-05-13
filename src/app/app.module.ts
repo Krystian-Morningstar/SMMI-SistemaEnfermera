@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
+import { MqttSensorsModule } from './mqtt-sensors.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { ListComponent } from './views/list/list.component';
@@ -32,6 +34,7 @@ import { ReportingComponent } from './views/reporting/reporting.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MqttSensorsModule,
     RouterOutlet,
     FormsModule,
     HttpClientModule

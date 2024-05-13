@@ -17,7 +17,7 @@ export class LoginComponent {
   }
 
   prueba = {
-    matricula:"E20245M",
+    matricula:"E90245M",
     contraseña:"segura123"
   }
 

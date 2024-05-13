@@ -1,0 +1,817 @@
+{
+    "info": {
+        "_postman_id": "049580ff-1173-4035-ba66-be25c7e00ae7",
+        "name": "SMMI",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Medico",
+            "item": [
+                {
+                    "name": "PostMedicos",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/medicos",
+                            "path": [
+                                "api",
+                                "medicos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"5559876543\",\n  \"curp\": \"MQLO100405HDFRPN09\",\n  \"genero\": \"M\",\n  \"cedula\": \"20345678\",\n  \"contrasena\": \"segura123\",\n  \"id_especialidades\": [3],\n  \"url_img\":\"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffotografiamejorparavendermas.com%2Fla-importancia-de-la-imagen%2F&psig=AOvVaw01uJbotrQvU_UTdHOZz6-L&ust=1713514234403000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCiyoyoy4UDFQAAAAAdAAAAABAJ\"\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "Get un Medico",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/medicos/M01245A",
+                            "path": [
+                                "api",
+                                "medicos",
+                                "M01245A"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "getAll Medicos",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/medicos",
+                            "path": [
+                                "api",
+                                "medicos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get ingresos asignados",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/medicos/M11245A/ingresos",
+                            "path": [
+                                "api",
+                                "medicos",
+                                "M11245A",
+                                "ingresos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "auth-medico",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/register/medico",
+                            "path": [
+                                "api",
+                                "auth",
+                                "register",
+                                "medico"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Pedro\",\n  \"apellidos\": \" López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1059876543\",\n  \"curp\": \"APOLA900405HDFRPN01\",\n  \"genero\": \"M\",\n  \"cedula\": \"11245675\",\n  \"contrasena\": \"segura123\",\n  \"id_especialidades\": [1,3],\n  \"url_img\":\"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffotografiamejorparavendermas.com%2Fla-importancia-de-la-imagen%2F&psig=AOvVaw01uJbotrQvU_UTdHOZz6-L&ust=1713514234403000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCiyoyoy4UDFQAAAAAdAAAAABAJ\"\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "login-doctor",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/login",
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"matricula\":\"M01245A\",\n  \"contraseña\":\"segura123\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "register enfermera",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/register/enfermera",
+                            "path": [
+                                "api",
+                                "auth",
+                                "register",
+                                "enfermera"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Maria\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1059876543\",\n  \"curp\": \"MOPJ900405HDFRPN00\",\n  \"genero\": \"F\",\n  \"cedula\": \"90245670\",\n  \"contrasena\": \"segura123\",\n  \"hab_tecnicas\": [\"sabe cosinar \"],\n  \"url_img\":\"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffotografiamejorparavendermas.com%2Fla-importancia-de-la-imagen%2F&psig=AOvVaw01uJbotrQvU_UTdHOZz6-L&ust=1713514234403000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCiyoyoy4UDFQAAAAAdAAAAABAJ\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "register Admin",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/register/admin",
+                            "path": [
+                                "api",
+                                "auth",
+                                "register",
+                                "admin"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Juana\",\n  \"apellidos\": \"La cubana\",\n  \"direccion\": \"Calle 123, Ciudad, País\",\n  \"telefono\": \"1234567890\",\n  \"genero\":\"M\",\n  \"curp\": \"JCCDEFGHIJKLM12340A\",\n  \"contrasena\": \"segura123\",\n  \"url_img\": \"https://example.com/image.jpg\",\n  \"conocimiento_auxilios\": true,\n  \"nivel_educacion\": \"BASICA\"\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "login  admi",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/login",
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"matricula\":\"A53687J\",\n  \"contraseña\":\"segura123\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "login enfermera",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/auth/login",
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"matricula\":\"E90245M\",\n  \"contraseña\": \"segura123\"\n \n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Especialidades",
+            "item": [
+                {
+                    "name": "create ",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/especialidades",
+                            "path": [
+                                "api",
+                                "especialidades"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombre\":\"Neurologia\",\n  \"descripcion\":\"Nose algo de neuro \"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "getOne id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/especialidades/1",
+                            "path": [
+                                "api",
+                                "especialidades",
+                                "1"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get All",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/especialidades",
+                            "path": [
+                                "api",
+                                "especialidades"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Enfermeras",
+            "item": [
+                {
+                    "name": "create Enfermera",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/enfermeras",
+                            "path": [
+                                "api",
+                                "enfermeras"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Juan\",\n  \"apellidos\": \"Martínez López\",\n  \"direccion\": \"Avenida Independencia 456\",\n  \"telefono\": \"1559876543\",\n  \"curp\": \"POPO100405HDFRPN09\",\n  \"genero\": \"M\",\n  \"cedula\": \"20345678\",\n  \"contrasena\": \"segura123\",\n  \"hab_tecnicas\": [\"sabe cosinar \"]\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "get One ",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/enfermeras/E80245S",
+                            "path": [
+                                "api",
+                                "enfermeras",
+                                "E80245S"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get All",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/enfermeras/",
+                            "path": [
+                                "api",
+                                "enfermeras"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "habitaciones",
+            "item": [
+                {
+                    "name": "Creat habitacion",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/habitaciones",
+                            "path": [
+                                "api",
+                                "habitaciones"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombre_habitacion\":\"H01\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "todas habitaciones",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/habitaciones",
+                            "path": [
+                                "api",
+                                "habitaciones"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "update estado",
+                    "request": {
+                        "method": "PATCH",
+                        "url": {
+                            "raw": "http://localhost:3000/api/habitaciones/3",
+                            "path": [
+                                "api",
+                                "habitaciones",
+                                "3"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"ocupado\":false\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "hab ocupadas ",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/habitaciones/ocupados",
+                            "path": [
+                                "api",
+                                "habitaciones",
+                                "ocupados"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "sensor",
+            "item": [
+                {
+                    "name": "SEED Catalogo Sensores",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/sensores/seed",
+                            "path": [
+                                "api",
+                                "sensores",
+                                "seed"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get all Catalogo de sensores",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/sensores/catalogo",
+                            "path": [
+                                "api",
+                                "sensores",
+                                "catalogo"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Admin",
+            "item": [
+                {
+                    "name": "get one",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/admin/A53687J",
+                            "path": [
+                                "api",
+                                "admin",
+                                "A53687J"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Ingresos",
+            "item": [
+                {
+                    "name": "crear ingreso",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos",
+                            "path": [
+                                "api",
+                                "ingresos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nombres\": \"Fernando\",\n  \"apellidos\": \"Pérez\",\n  \"sexo\": \"M\",\n  \"edad\": 30,\n  \"padecimientos\": \"Hipertensión\",\n  \"alergias\": \"Ninguna\",\n  \"causa_ingreso\": \"Paro cerebral \",\n  \"id_enfermera\": \"E80245S\",\n  \"id_especialidad\": 3,\n  \"id_habitacion\": 4\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "get all ",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos",
+                            "path": [
+                                "api",
+                                "ingresos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "dar de alta ",
+                    "request": {
+                        "method": "PATCH",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/0cd05105-cf08-4a8a-ac64-f505e5eeb805",
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "0cd05105-cf08-4a8a-ac64-f505e5eeb805"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get One",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/73054ec7-0600-4d1e-9ccb-df0648ba980e",
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "73054ec7-0600-4d1e-9ccb-df0648ba980e"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "ingresos sin alta",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/activos",
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "activos"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "asig a una enfermera",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/enfermera/E80245S",
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "enfermera",
+                                "E80245S"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get all X especialidad",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/especialidad/2",
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "especialidad",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get by Nombres",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/ingresos/busq/?nombre=Juan Pérez",
+                            "query": [
+                                {
+                                    "key": "nombre",
+                                    "value": "Juan Pérez"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "ingresos",
+                                "busq"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "recetas",
+            "item": [
+                {
+                    "name": "recetas",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:3000/api/recetas",
+                            "path": [
+                                "api",
+                                "recetas"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"matricula_medico\": \"M11245A\",\n  \"id_ingreso\": \"0cd05105-cf08-4a8a-ac64-f505e5eeb805\",\n  \"medicamentos\": \"17mg de losartan\",\n  \"indicaciones_addic\": \"Tomar awua y reposo \"\n}\n"
+                        }
+                    }
+                },
+                {
+                    "name": "find All X Ingreso",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:3000/api/recetas/0cd05105-cf08-4a8a-ac64-f505e5eeb805",
+                            "path": [
+                                "api",
+                                "recetas",
+                                "0cd05105-cf08-4a8a-ac64-f505e5eeb805"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "README",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "https://smmi-api-production.up.railway.app",
+                    "protocol": "https",
+                    "host": [
+                        "smmi-api-production",
+                        "up",
+                        "railway",
+                        "app"
+                    ]
+                }
+            }
+        }
+    ]
+}

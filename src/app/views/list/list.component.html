@@ -13,7 +13,7 @@
                         </div>
                         <div class="sensorList">
                             <div class="sensorContainer" *ngFor="let sensor of sensorsList">
-                                <h4>{{sensor.nombre}}: <span class="sensorContent"></span></h4>
+                                <h4>{{sensor.nombre}}: <span class="sensorContent">{{mapSensors.get(pacient.id_habitacion.id_habitacion+sensor.id)}}</span></h4>
                             </div>
                         </div>
                     </div>
