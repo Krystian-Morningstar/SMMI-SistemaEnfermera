@@ -1,16 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtPayload } from 'jwt-decode';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { IMqttMessage } from 'ngx-mqtt';
-import { Signal } from '@angular/core';
 
 import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
 import { PacientsService } from '../../services/pacients.service';
 import { JwttokenService } from '../../services/jwttoken.service';
 import { BasicVariablesService } from '../../services/basic-variables.service';
-import { SensorsService } from '../../services/sensors.service';
-import { sensores } from 'src/app/models/sensores.model';
+import { informacion } from 'src/app/models/pacienteInfo.model';
 
 @Component({
   selector: 'app-list',
@@ -18,13 +16,13 @@ import { sensores } from 'src/app/models/sensores.model';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit{
-
-  allRooms: any[] = []
-  sensorsList: any[] = []
-
-  mapSensors: Map<string, string> = new Map()
-
+  
+  miArreglo: informacion[] = []
+  observable$!: Observable<informacion[]>
   subscription: Subscription | undefined
+
+  miPropiedad: number = 0;
+
 
   blankspace: boolean = false
   loading: boolean = true
@@ -32,10 +30,9 @@ export class ListComponent implements OnInit{
   constructor(
     private readonly eventMqtt: MqttSensorsService,
     private router: Router, 
-    private rooms: PacientsService,
-    private sensors: SensorsService,
+    private pacientsService: PacientsService,
     private jwtService: JwttokenService, 
-    private basic: BasicVariablesService
+    private basic: BasicVariablesService,
     ) 
     {}
 
@@ -50,9 +47,15 @@ export class ListComponent implements OnInit{
       const jwtObject = this.returnJSObject(jwtDecoded)
       const tuition = jwtObject.matricula
 
-      this.setSensors(this.sensors)
-      this.setRooms(this.rooms, tuition)
-
+      this.getAllRooms(this.pacientsService, tuition)
+        .then((response)=>{
+          this.blankspace = false
+          this.fixRooms(response)
+        })
+        .catch((err)=>{
+          this.blankspace = true
+          console.log("Error al leer los cuartos: ",err)
+        })
     }
   }
 
@@ -62,11 +65,10 @@ export class ListComponent implements OnInit{
     return object
   }
 
-  getAllRooms(roomService: PacientsService, tuition: string){
+  getAllRooms(roomService: PacientsService, tuition: string): Promise<any[]>{
     return new Promise((resolve, reject) => {
       roomService.getRooms(tuition).subscribe(result => {
         setTimeout(()=>{
-          console.log(result);
           let allRooms: any[] = result
           if(allRooms.length==0){
             reject(new Error("No existen pacientes encargados a la enfermera actual"))
@@ -74,69 +76,115 @@ export class ListComponent implements OnInit{
           else{
             resolve(allRooms)
           }
-        }, 2000)
+        }, 3000)
       })
     })
   }
 
-  getSensors(sensorsService: SensorsService){
-    return new Promise((resolve, reject) => {
-      sensorsService.getSensors().subscribe(result => {
-        console.log(result);
-        let allSensors: any[] = result
-        if(allSensors.length==0){
-          reject(new Error("No hay sensores registrados"))
+  fixRooms(rooms: any[]){
+    rooms.forEach((room)=>{
+      let array: informacion = {
+        id_ingreso: room.id_ingreso,
+        fecha_ingreso: room.fecha_ingreso,
+        hora_ingreso: room.hora_ingreso,
+        nombres: room.nombres,
+        apellidos: room.apellidos,
+        sexo: room.sexo,
+        edad: room.edad,
+        padecimientos: room.padecimientos,
+        alergias: room.alergias,
+        causa_ingreso: room.causa_ingreso,
+        de_alta: room.de_alta,
+        id_especialidad: {
+          descripcion: room.id_especialidad.descripcion,
+          nombre: room.id_especialidad.nombre,
+          id: room.id_especialidad.id
+        },
+        id_habitacion: room.id_habitacion.id_habitacion,
+        nombre_habitacion: room.id_habitacion.nombre_habitacion,
+        ocupado: room.id_habitacion.ocupado,
+        oxig: {
+          id: 1,
+          nombre: 'Oxigenacion',
+          topico: '/oxig',
+          unidad_medida: 'rpm',
+          valor: 0
+        },
+        freqCard: {
+          id: 2,
+          nombre: 'Frecuencia Cardiaca',
+          topico: '/freqCard',
+          unidad_medida: 'bpm',
+          valor: 0
+        },
+        presArtsist: {
+          id: 3,
+          nombre: 'Presion Arterial Sistolica',
+          topico: '/presArtsist',
+          unidad_medida: 'mmHg',
+          valor: 0
+        },
+        presArtdiast: {
+          id: 4,
+          nombre: 'Presion Arterial Diastolica',
+          topico: '/presArtdiast',
+          unidad_medida: 'mmHg',
+          valor: 0
+        },
+        tempCorp: {
+          id: 5,
+          nombre: 'Temperatura Corporal',
+          topico: '/tempCorp',
+          unidad_medida: '°C',
+          valor: 0
         }
-        setTimeout(()=>{
-          resolve(allSensors)
-        }, 1000)
+      }
+      this.miArreglo.push(array)
+    })
+    this.subscribeToSensors()
+      .then((response)=>{
+        console.log(response);
+        this.loading = false
       })
-    })
   }
 
-  async setRooms(rooms: PacientsService, tuition: string){
-    await this.getAllRooms(rooms, tuition)
-    .then((response: any) => {
-      this.allRooms = response
-      this.blankspace = (this.allRooms.length == 0)
-      this.loading = false
-      this.getRoomSensors()
-    })
-    .catch((err)=>console.log("Error al mostrar datos: ", err))
-  }
-
-  async setSensors(sensors: SensorsService){
-    let response: any = await this.getSensors(sensors)
-    this.sensorsList = response
-  }
-
-  showDetails(id: number){
+  showDetails(id: string){
     this.router.navigateByUrl('/details/'+id)
   }
 
-  subscribeToSensors(roomId: string, topic: string){
-    this.subscription = this.eventMqtt.subscribeTopic(roomId, topic)
-      .subscribe((data: IMqttMessage) => {
-        let item = JSON.parse(data.payload.toString())
-        this.setSensorData(item)
+  subscribeToSensors(){
+    return new Promise((resolve, reject)=>{
+      this.miArreglo.forEach(info=>{
+        let id = `${info.id_habitacion}`
+        this.subscription = this.eventMqtt.subscribeTopic(id, info.oxig.topico)
+          .subscribe((data: IMqttMessage) => {
+            let item = JSON.parse(data.payload.toString())
+            info.oxig.valor = item.valor
+        })
+        this.subscription = this.eventMqtt.subscribeTopic(id, info.freqCard.topico)
+          .subscribe((data: IMqttMessage) => {
+            let item = JSON.parse(data.payload.toString())
+            info.freqCard.valor = item.valor
+        })
+        this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtsist.topico)
+          .subscribe((data: IMqttMessage) => {
+            let item = JSON.parse(data.payload.toString())
+            info.presArtsist.valor = item.valor
+        })
+        this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtdiast.topico)
+          .subscribe((data: IMqttMessage) => {
+            let item = JSON.parse(data.payload.toString())
+            info.presArtdiast.valor = item.valor
+        })
+        this.subscription = this.eventMqtt.subscribeTopic(id, info.tempCorp.topico)
+          .subscribe((data: IMqttMessage) => {
+            let item = JSON.parse(data.payload.toString())
+            info.tempCorp.valor = item.valor
+        })
       })
-  }
-
-  getRoomSensors(){
-    this.allRooms.forEach((room)=>{
-      let id = room.id_habitacion.id_habitacion
-      this.sensorsList.forEach((sensor)=>{
-        this.subscribeToSensors(id, sensor.topico)
-      })
+      setTimeout(()=>{
+        resolve(this.miArreglo)
+      }, 2000)
     })
-  }
-
-  setSensorData(data: any){
-    setInterval(()=>{
-      let key = `${data.id_habitacion+data.id_sensor}`
-      this.mapSensors.set(key, data.valor)
-      console.log(this.mapSensors.get(key));
-      
-    }, 2000)
   }
 }
