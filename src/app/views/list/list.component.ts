@@ -8,7 +8,7 @@ import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
 import { PacientsService } from '../../services/pacients.service';
 import { JwttokenService } from '../../services/jwttoken.service';
 import { BasicVariablesService } from '../../services/basic-variables.service';
-import { informacion } from 'src/app/models/pacienteInfo.model';
+import { informacion } from 'src/app/models/pacientCard.model';
 
 @Component({
   selector: 'app-list',
@@ -18,11 +18,7 @@ import { informacion } from 'src/app/models/pacienteInfo.model';
 export class ListComponent implements OnInit{
   
   miArreglo: informacion[] = []
-  observable$!: Observable<informacion[]>
   subscription: Subscription | undefined
-
-  miPropiedad: number = 0;
-
 
   blankspace: boolean = false
   loading: boolean = true
@@ -67,7 +63,7 @@ export class ListComponent implements OnInit{
 
   getAllRooms(roomService: PacientsService, tuition: string): Promise<any[]>{
     return new Promise((resolve, reject) => {
-      roomService.getRooms(tuition).subscribe(result => {
+      roomService.getAllPacients(tuition).subscribe(result => {
         setTimeout(()=>{
           let allRooms: any[] = result
           if(allRooms.length==0){
@@ -85,54 +81,35 @@ export class ListComponent implements OnInit{
     rooms.forEach((room)=>{
       let array: informacion = {
         id_ingreso: room.id_ingreso,
-        fecha_ingreso: room.fecha_ingreso,
-        hora_ingreso: room.hora_ingreso,
         nombres: room.nombres,
         apellidos: room.apellidos,
-        sexo: room.sexo,
-        edad: room.edad,
-        padecimientos: room.padecimientos,
-        alergias: room.alergias,
-        causa_ingreso: room.causa_ingreso,
-        de_alta: room.de_alta,
-        id_especialidad: {
-          descripcion: room.id_especialidad.descripcion,
-          nombre: room.id_especialidad.nombre,
-          id: room.id_especialidad.id
-        },
         id_habitacion: room.id_habitacion.id_habitacion,
         nombre_habitacion: room.id_habitacion.nombre_habitacion,
-        ocupado: room.id_habitacion.ocupado,
         oxig: {
-          id: 1,
           nombre: 'Oxigenacion',
           topico: '/oxig',
           unidad_medida: 'rpm',
           valor: 0
         },
         freqCard: {
-          id: 2,
           nombre: 'Frecuencia Cardiaca',
           topico: '/freqCard',
           unidad_medida: 'bpm',
           valor: 0
         },
         presArtsist: {
-          id: 3,
           nombre: 'Presion Arterial Sistolica',
           topico: '/presArtsist',
           unidad_medida: 'mmHg',
           valor: 0
         },
         presArtdiast: {
-          id: 4,
           nombre: 'Presion Arterial Diastolica',
           topico: '/presArtdiast',
           unidad_medida: 'mmHg',
           valor: 0
         },
         tempCorp: {
-          id: 5,
           nombre: 'Temperatura Corporal',
           topico: '/tempCorp',
           unidad_medida: '°C',

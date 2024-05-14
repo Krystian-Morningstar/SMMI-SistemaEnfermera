@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Router } from '@angular/router';
+
+import { Chart } from 'chart.js';
+
 import { JwttokenService } from '../../services/jwttoken.service';
 import { BasicVariablesService } from '../../services/basic-variables.service';
 import { PacientsService } from '../../services/pacients.service';
@@ -12,12 +14,19 @@ import { PacientsService } from '../../services/pacients.service';
   styleUrls: ['./pacient-details.component.css']
 })
 export class PacientDetailsComponent {
+  
   pacientDetails: any
   id: string = '';
 
   loading: boolean = true
 
-  constructor(private route: ActivatedRoute, private ruta: Router, private jwtService: JwttokenService, private basic: BasicVariablesService, private rooms: PacientsService){
+  constructor(
+    private route: ActivatedRoute, 
+    private ruta: Router, 
+    private jwtService: JwttokenService, 
+    private basic: BasicVariablesService, 
+    private rooms: PacientsService)
+    {
     const jwt = jwtService.getToken()
     if(jwt == null){
       alert("El token guardado ya ha expirado")
@@ -36,7 +45,7 @@ export class PacientDetailsComponent {
         let details: any[] = result
         setTimeout(()=> {
           resolve(details)
-        }, 3500)
+        }, 2000)
       })
     })
   }

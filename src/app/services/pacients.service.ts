@@ -13,7 +13,7 @@ export class PacientsService {
     this.baseUrl = "https://smmi-api-production.up.railway.app/api/ingresos/"
   }
 
-  getRooms(nurse: string): Observable<any>{
+  getAllPacients(nurse: string): Observable<any>{
     return this.http.get(`${this.baseUrl + "enfermera/" + nurse}`)
   }
 

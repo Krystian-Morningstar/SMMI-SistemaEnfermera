@@ -6,18 +6,18 @@
         <ng-template #loaded class="ready">
             <div class="listContainer" *ngIf="!blankspace">
                 <div class="pacientContainer" *ngFor="let pacient of miArreglo" (click)="showDetails(pacient.id_ingreso)">
-                    <div class="title"><h2>Habitación {{pacient.id_habitacion}}</h2></div>
+                    <div class="title"><h2>Habitación {{pacient.nombre_habitacion}}</h2></div>
                     <div class="information">
                         <div class="name">
                             <h3>{{pacient.nombres}} {{pacient.apellidos}}</h3><br>
                         </div>
                         <div class="sensorList">
                             <div class="sensorContainer">
-                                <h4>{{pacient.oxig.nombre}}: <span class="sensorContent">{{pacient.oxig.valor}}</span></h4>
-                                <h4>{{pacient.freqCard.nombre}}: <span class="sensorContent">{{pacient.freqCard.valor}}</span></h4>
-                                <h4>{{pacient.presArtsist.nombre}}: <span class="sensorContent">{{pacient.presArtsist.valor}}</span></h4>
-                                <h4>{{pacient.presArtdiast.nombre}}: <span class="sensorContent">{{pacient.presArtdiast.valor}}</span></h4>
-                                <h4>{{pacient.tempCorp.nombre}}: <span class="sensorContent">{{pacient.tempCorp.valor}}</span></h4>
+                                <h4>{{pacient.oxig.nombre}}: <span class="sensorContent">{{pacient.oxig.valor}} {{pacient.oxig.unidad_medida}}</span></h4>
+                                <h4>{{pacient.freqCard.nombre}}: <span class="sensorContent">{{pacient.freqCard.valor}} {{pacient.freqCard.unidad_medida}}</span></h4>
+                                <h4>{{pacient.presArtsist.nombre}}: <span class="sensorContent">{{pacient.presArtsist.valor}} {{pacient.presArtsist.unidad_medida}}</span></h4>
+                                <h4>{{pacient.presArtdiast.nombre}}: <span class="sensorContent">{{pacient.presArtdiast.valor}} {{pacient.presArtdiast.unidad_medida}}</span></h4>
+                                <h4>{{pacient.tempCorp.nombre}}: <span class="sensorContent">{{pacient.tempCorp.valor}} {{pacient.tempCorp.unidad_medida}}</span></h4>
                             </div>
                         </div>
                     </div>
