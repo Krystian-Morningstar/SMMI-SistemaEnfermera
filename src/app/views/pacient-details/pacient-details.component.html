@@ -6,7 +6,7 @@
     <ng-template #loaded class="ready">
         <div class="detailsContainer">
             <div class="header">
-                <h2>Habitación {{ pacientDetails.id_habitacion.id_habitacion }}</h2>
+                <h2>Habitación {{ pacientDetails.id_habitacion }}</h2>
             </div>
             <div class="details">
                 <div class="information">
@@ -20,20 +20,26 @@
                     <br>
                     <p class="cause">Causa de ingreso: <span>{{pacientDetails.causa_ingreso}}</span></p>
                     <br>
-                    <p class="specialty">Especialidad asignada: <span>{{pacientDetails.id_especialidad.nombre}}</span></p>
+                    <p class="specialty">Especialidad asignada: <span>{{pacientDetails.especialidad}}</span></p>
                 </div>
                 <div class="graphics">
-                    <div class="temperature">
-                        <h3>Temperatura</h3>
-                    </div>
                     <div class="oxigen">
-                        <h3>Oxígeno</h3>
+                        <h3>Oxigenación</h3>
+                        <apx-chart 
+                            [series]="chartOptions.series!" 
+                            [chart]="chartOptions.chart!" 
+                            [title]="chartOptions.title!"
+                            [xaxis]="chartOptions.xaxis!">
+                        </apx-chart>
                     </div>
-                    <div class="pressure">
-                        <h3>Presión</h3>
+                    <div class="freqCard">
+                        <h3>F. Cardiaco</h3>
                     </div>
-                    <div class="rhythm">
-                        <h3>R. Cardiaco</h3>
+                    <div class="presArt">
+                        <h3>Presión Arterial</h3>
+                    </div>
+                    <div class="tempCorp">
+                        <h3>Temperatura</h3>
                     </div>
                 </div>
                 <div class="buttons">

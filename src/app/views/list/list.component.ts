@@ -1,7 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtPayload } from 'jwt-decode';
-import { Observable, Subscription, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IMqttMessage } from 'ngx-mqtt';
 
 import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
@@ -15,7 +15,7 @@ import { informacion } from 'src/app/models/pacientCard.model';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit, OnDestroy{
   
   miArreglo: informacion[] = []
   subscription: Subscription | undefined
@@ -39,6 +39,7 @@ export class ListComponent implements OnInit{
       this.basic.logout()
     }
     else{
+      this.eventMqtt.connect()
       const jwtDecoded = this.jwtService.getDecodeToken(jwt!)
       const jwtObject = this.returnJSObject(jwtDecoded)
       const tuition = jwtObject.matricula
@@ -55,6 +56,10 @@ export class ListComponent implements OnInit{
     }
   }
 
+  ngOnDestroy(): void {
+    this.eventMqtt.disconnect()
+  }
+
   returnJSObject(jwt: JwtPayload){
     let json = JSON.stringify(jwt)
     let object = JSON.parse(json)
@@ -62,6 +67,7 @@ export class ListComponent implements OnInit{
   }
 
   getAllRooms(roomService: PacientsService, tuition: string): Promise<any[]>{
+    
     return new Promise((resolve, reject) => {
       roomService.getAllPacients(tuition).subscribe(result => {
         setTimeout(()=>{
@@ -119,10 +125,7 @@ export class ListComponent implements OnInit{
       this.miArreglo.push(array)
     })
     this.subscribeToSensors()
-      .then((response)=>{
-        console.log(response);
-        this.loading = false
-      })
+    this.loading = false
   }
 
   showDetails(id: string){
@@ -130,38 +133,39 @@ export class ListComponent implements OnInit{
   }
 
   subscribeToSensors(){
-    return new Promise((resolve, reject)=>{
+    console.log("entrando a data");
       this.miArreglo.forEach(info=>{
         let id = `${info.id_habitacion}`
         this.subscription = this.eventMqtt.subscribeTopic(id, info.oxig.topico)
           .subscribe((data: IMqttMessage) => {
             let item = JSON.parse(data.payload.toString())
             info.oxig.valor = item.valor
+            console.log(info.oxig.valor);
         })
         this.subscription = this.eventMqtt.subscribeTopic(id, info.freqCard.topico)
           .subscribe((data: IMqttMessage) => {
             let item = JSON.parse(data.payload.toString())
             info.freqCard.valor = item.valor
+            console.log(info.freqCard.valor);
         })
         this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtsist.topico)
           .subscribe((data: IMqttMessage) => {
             let item = JSON.parse(data.payload.toString())
             info.presArtsist.valor = item.valor
+            console.log(info.presArtsist.valor);
         })
         this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtdiast.topico)
           .subscribe((data: IMqttMessage) => {
             let item = JSON.parse(data.payload.toString())
             info.presArtdiast.valor = item.valor
+            console.log(info.presArtdiast.valor);
         })
         this.subscription = this.eventMqtt.subscribeTopic(id, info.tempCorp.topico)
           .subscribe((data: IMqttMessage) => {
             let item = JSON.parse(data.payload.toString())
             info.tempCorp.valor = item.valor
+            console.log(info.tempCorp.valor);
         })
       })
-      setTimeout(()=>{
-        resolve(this.miArreglo)
-      }, 2000)
-    })
   }
 }

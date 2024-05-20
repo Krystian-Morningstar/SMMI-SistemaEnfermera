@@ -52,7 +52,8 @@ div.graphics{
 }
 
 div.graphics div{
-    width: 50%;
+    width: 47%;
+    height: auto;
 }
 
 div.buttons{
