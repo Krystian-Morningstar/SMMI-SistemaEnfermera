@@ -5,7 +5,7 @@
         </div>
         <ng-template #loaded class="ready">
             <div class="listContainer" *ngIf="!blankspace">
-                <div class="pacientContainer" *ngFor="let pacient of miArreglo" (click)="showDetails(pacient.id_ingreso)">
+                <div class="pacientContainer" *ngFor="let pacient of arregloPacientes" (click)="showDetails(pacient.id_ingreso)">
                     <div class="title"><h2>Habitación {{pacient.nombre_habitacion}}</h2></div>
                     <div class="information">
                         <div class="name">
@@ -13,11 +13,11 @@
                         </div>
                         <div class="sensorList">
                             <div class="sensorContainer">
-                                <h4>{{pacient.oxig.nombre}}: <span class="sensorContent">{{pacient.oxig.valor}} {{pacient.oxig.unidad_medida}}</span></h4>
-                                <h4>{{pacient.freqCard.nombre}}: <span class="sensorContent">{{pacient.freqCard.valor}} {{pacient.freqCard.unidad_medida}}</span></h4>
-                                <h4>{{pacient.presArtsist.nombre}}: <span class="sensorContent">{{pacient.presArtsist.valor}} {{pacient.presArtsist.unidad_medida}}</span></h4>
-                                <h4>{{pacient.presArtdiast.nombre}}: <span class="sensorContent">{{pacient.presArtdiast.valor}} {{pacient.presArtdiast.unidad_medida}}</span></h4>
-                                <h4>{{pacient.tempCorp.nombre}}: <span class="sensorContent">{{pacient.tempCorp.valor}} {{pacient.tempCorp.unidad_medida}}</span></h4>
+                                <h4>Oxigenación: <span class="sensorContent">{{pacient.oxig}}</span></h4>
+                                <h4>Frecuencia cardíaca: <span class="sensorContent">{{pacient.freqCard}}</span></h4>
+                                <h4>P. A. Sistólica: <span class="sensorContent">{{pacient.presArtsist}}</span></h4>
+                                <h4>P. A. Diastólico: <span class="sensorContent">{{pacient.presArtdiast}}</span></h4>
+                                <h4>Temperatura corporal: <span class="sensorContent">{{pacient.tempCorp}}</span></h4>
                             </div>
                         </div>
                     </div>

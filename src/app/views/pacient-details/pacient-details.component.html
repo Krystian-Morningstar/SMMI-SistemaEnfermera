@@ -25,11 +25,11 @@
                 <div class="graphics">
                     <div class="oxigen">
                         <h3>Oxigenación</h3>
-                        <apx-chart 
-                            [series]="chartOptions.series!" 
-                            [chart]="chartOptions.chart!" 
-                            [title]="chartOptions.title!"
-                            [xaxis]="chartOptions.xaxis!">
+                        <apx-chart #oxig
+                            [series]="oxigOptions.series!" 
+                            [chart]="oxigOptions.chart!" 
+                            [title]="oxigOptions.title!"
+                            [xaxis]="oxigOptions.xaxis!">
                         </apx-chart>
                     </div>
                     <div class="freqCard">

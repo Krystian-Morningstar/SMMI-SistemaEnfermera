@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, signal, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtPayload } from 'jwt-decode';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { IMqttMessage } from 'ngx-mqtt';
 
 import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
@@ -9,6 +9,7 @@ import { PacientsService } from '../../services/pacients.service';
 import { JwttokenService } from '../../services/jwttoken.service';
 import { BasicVariablesService } from '../../services/basic-variables.service';
 import { informacion } from 'src/app/models/pacientCard.model';
+import { subscripcionPack } from 'src/app/models/sensorSub.model';
 
 @Component({
   selector: 'app-list',
@@ -17,8 +18,8 @@ import { informacion } from 'src/app/models/pacientCard.model';
 })
 export class ListComponent implements OnInit, OnDestroy{
   
-  miArreglo: informacion[] = []
-  subscription: Subscription | undefined
+  arregloPacientes: informacion[] = []
+  arregloSensores: subscripcionPack[] = []
 
   blankspace: boolean = false
   loading: boolean = true
@@ -57,6 +58,11 @@ export class ListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
+    this.arregloSensores.forEach(arreglo => {
+      arreglo.sensores.forEach(sensor => {
+        sensor.unsubscribe()
+      })
+    })
     this.eventMqtt.disconnect()
   }
 
@@ -91,81 +97,69 @@ export class ListComponent implements OnInit, OnDestroy{
         apellidos: room.apellidos,
         id_habitacion: room.id_habitacion.id_habitacion,
         nombre_habitacion: room.id_habitacion.nombre_habitacion,
-        oxig: {
-          nombre: 'Oxigenacion',
-          topico: '/oxig',
-          unidad_medida: 'rpm',
-          valor: 0
-        },
-        freqCard: {
-          nombre: 'Frecuencia Cardiaca',
-          topico: '/freqCard',
-          unidad_medida: 'bpm',
-          valor: 0
-        },
-        presArtsist: {
-          nombre: 'Presion Arterial Sistolica',
-          topico: '/presArtsist',
-          unidad_medida: 'mmHg',
-          valor: 0
-        },
-        presArtdiast: {
-          nombre: 'Presion Arterial Diastolica',
-          topico: '/presArtdiast',
-          unidad_medida: 'mmHg',
-          valor: 0
-        },
-        tempCorp: {
-          nombre: 'Temperatura Corporal',
-          topico: '/tempCorp',
-          unidad_medida: '°C',
-          valor: 0
-        }
+        oxig: 0,
+        freqCard: 0,
+        presArtsist: 0,
+        presArtdiast: 0,
+        tempCorp: 0
       }
-      this.miArreglo.push(array)
+      this.arregloPacientes.push(array)
     })
-    this.subscribeToSensors()
+    this.setSubscribtions()
     this.loading = false
+  }
+
+  setSubscribtions(){
+    let arregloMayor: subscripcionPack[] = []
+    console.log(this.arregloPacientes)
+      this.arregloPacientes.forEach(paciente => {
+        let comprobante = this.arregloSensores.find(pak => pak.id_ingreso == paciente.id_ingreso)
+        console.log(comprobante)
+        if(comprobante == null){
+          let arregloMenor: Subscription[] = []
+          arregloMenor.push(this.eventMqtt.subscribeTopic(
+            paciente.id_habitacion, "/oxig").subscribe((data: IMqttMessage) => {
+              let item = JSON.parse(data.payload.toString())
+              paciente.oxig = item.valor
+            }
+          ))
+          arregloMenor.push(this.eventMqtt.subscribeTopic(
+            paciente.id_habitacion, "/freqCard").subscribe((data: IMqttMessage) => {
+              let item = JSON.parse(data.payload.toString())
+              paciente.freqCard = item.valor
+            }
+          ))
+          arregloMenor.push(this.eventMqtt.subscribeTopic(
+            paciente.id_habitacion, "/presArtsist").subscribe((data: IMqttMessage) => {
+              let item = JSON.parse(data.payload.toString())
+              paciente.presArtsist = item.valor
+            }
+          ))
+          arregloMenor.push(this.eventMqtt.subscribeTopic(
+            paciente.id_habitacion, "/presArtdiast").subscribe((data: IMqttMessage) => {
+              let item = JSON.parse(data.payload.toString())
+              paciente.presArtdiast = item.valor
+            }
+          ))
+          arregloMenor.push(this.eventMqtt.subscribeTopic(
+            paciente.id_habitacion, "/tempCorp").subscribe((data: IMqttMessage) => {
+              let item = JSON.parse(data.payload.toString())
+              paciente.tempCorp = item.valor
+            }
+          ))
+          arregloMayor.push({
+            id_ingreso: paciente.id_ingreso,
+            sensores: arregloMenor
+          })
+        }
+        else{
+          console.log("el cuarto ya existe");
+        }
+        this.arregloSensores = arregloMayor
+      })
   }
 
   showDetails(id: string){
     this.router.navigateByUrl('/details/'+id)
-  }
-
-  subscribeToSensors(){
-    console.log("entrando a data");
-      this.miArreglo.forEach(info=>{
-        let id = `${info.id_habitacion}`
-        this.subscription = this.eventMqtt.subscribeTopic(id, info.oxig.topico)
-          .subscribe((data: IMqttMessage) => {
-            let item = JSON.parse(data.payload.toString())
-            info.oxig.valor = item.valor
-            console.log(info.oxig.valor);
-        })
-        this.subscription = this.eventMqtt.subscribeTopic(id, info.freqCard.topico)
-          .subscribe((data: IMqttMessage) => {
-            let item = JSON.parse(data.payload.toString())
-            info.freqCard.valor = item.valor
-            console.log(info.freqCard.valor);
-        })
-        this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtsist.topico)
-          .subscribe((data: IMqttMessage) => {
-            let item = JSON.parse(data.payload.toString())
-            info.presArtsist.valor = item.valor
-            console.log(info.presArtsist.valor);
-        })
-        this.subscription = this.eventMqtt.subscribeTopic(id, info.presArtdiast.topico)
-          .subscribe((data: IMqttMessage) => {
-            let item = JSON.parse(data.payload.toString())
-            info.presArtdiast.valor = item.valor
-            console.log(info.presArtdiast.valor);
-        })
-        this.subscription = this.eventMqtt.subscribeTopic(id, info.tempCorp.topico)
-          .subscribe((data: IMqttMessage) => {
-            let item = JSON.parse(data.payload.toString())
-            info.tempCorp.valor = item.valor
-            console.log(info.tempCorp.valor);
-        })
-      })
   }
 }

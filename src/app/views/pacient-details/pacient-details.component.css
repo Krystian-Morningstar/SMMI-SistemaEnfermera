@@ -20,7 +20,7 @@ img#cargandoGif{
 }
 
 div.detailsContainer{
-    width: 50%;
+    width: 70%;
     height: auto;
     margin: auto;
     margin-top: 30px;
@@ -107,14 +107,12 @@ h3{
     font-size: large;
 }
 
-@media only screen and (max-width: 800px){
-    div.detailsContainer{
-        width: 65%;
-    }
-}
-
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 900px){
     div.detailsContainer{
         width: 80%;
+    }
+
+    div.graphics div{
+        width: 90%;
     }
 }

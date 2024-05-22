@@ -39,7 +39,7 @@ export class MqttSensorsService {
     
   }
 
-  subscribeTopic(roomId: string, topic: string): Observable<IMqttMessage>{
+  subscribeTopic(roomId: number, topic: string): Observable<IMqttMessage>{
     let topicUrl = `${this.baseUrl}`+'/Habitacion'+`${roomId}`+`${topic}`
     console.log(topicUrl)
     return this._mqttService.observe(topicUrl)

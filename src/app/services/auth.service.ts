@@ -10,7 +10,7 @@ export class AuthService {
   baseUrl: string = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "https://smmi-api-production.up.railway.app/api/auth/login"
+    this.baseUrl = "http://localhost:3000/api/auth/login"
   }
   
   login(user: any): Observable<any>{

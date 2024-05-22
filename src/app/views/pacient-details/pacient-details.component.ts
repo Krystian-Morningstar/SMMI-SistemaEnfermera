@@ -30,31 +30,87 @@ export type ChartOptions = {
   styleUrls: ['./pacient-details.component.css']
 })
 export class PacientDetailsComponent implements OnInit, OnDestroy{
-  @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions> | any = {
+  @ViewChild("oxig") oxigChart!: ChartComponent;
+  @ViewChild("freqCard") freqCardChart!: ChartComponent;
+  @ViewChild("presArtsist") presArtsistChart!: ChartComponent 
+  @ViewChild("presArtdiast") presArtdiastChart!: ChartComponent
+  @ViewChild("tempCorp") tempCorpChart!: ChartComponent
+
+  public oxigOptions: Partial<ChartOptions> | any = {
     series: [
       {
         name: "My-series",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+        data: [0, 0, 0, 0, 0]
       }
     ],
     chart: {
-      height: 350,
-      type: "bar"
+      height: 130,
+      type: "line"
     },
     title: {
       text: "My First Angular Chart"
     },
     xaxis: {
-      categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
+      categories: ["1", "2", "3", "4", "5"]
     }
   }
-  
-  currentTime = new Date()
-  oneBTime = new Date(this.currentTime.getSeconds() - 1)
-  twoBTime = new Date(this.currentTime.getSeconds() - 2)
-  threeBTime = new Date(this.currentTime.getSeconds() - 3)
-  fourBTime = new Date(this.currentTime.getSeconds() - 4)
+
+  public freqCardOptions: Partial<ChartOptions> | any = {
+    series: [
+      {
+        name: "My-series",
+        data: [0, 0, 0, 0, 0]
+      }
+    ],
+    chart: {
+      height: 130,
+      type: "line"
+    },
+    title: {
+      text: "My First Angular Chart"
+    },
+    xaxis: {
+      categories: ["1", "2", "3", "4", "5"]
+    }
+  }
+
+  public presArtOptions: Partial<ChartOptions> | any = {
+    series: [
+      {
+        name: "My-series",
+        data: [0, 0, 0, 0, 0]
+      }
+    ],
+    chart: {
+      height: 130,
+      type: "line"
+    },
+    title: {
+      text: "My First Angular Chart"
+    },
+    xaxis: {
+      categories: ["1", "2", "3", "4", "5"]
+    }
+  }
+
+  public tempCorpOptions: Partial<ChartOptions> | any = {
+    series: [
+      {
+        name: "My-series",
+        data: [0, 0, 0, 0, 0]
+      }
+    ],
+    chart: {
+      height: 130,
+      type: "line"
+    },
+    title: {
+      text: "My First Angular Chart"
+    },
+    xaxis: {
+      categories: ["1", "2", "3", "4", "5"]
+    }
+  }
 
   pacientDetails: detalles = {
     id_ingreso: '',
@@ -69,11 +125,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
     nombre_habitacion: '',
     especialidad:''
   }
-
-  oxigenData: number[] = []
-  freqCardData: number[] = []
-  presArtData: number[] = []
-  tempCorpData: number[] = []
   
   loading: boolean = true
 
@@ -98,7 +149,7 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       this.setDetails(this.pacientsService, id)
       this.initializeCharts()
     }
-    console.log(this.chartOptions);
+    console.log(this.oxigOptions);
     
   }
 
