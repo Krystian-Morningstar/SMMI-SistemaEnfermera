@@ -33,13 +33,31 @@
                         </apx-chart>
                     </div>
                     <div class="freqCard">
-                        <h3>F. Cardiaco</h3>
+                        <h3>Frequencia cardiaca</h3>
+                        <apx-chart #freqCard
+                            [series]="freqCardOptions.series!" 
+                            [chart]="freqCardOptions.chart!" 
+                            [title]="freqCardOptions.title!"
+                            [xaxis]="freqCardOptions.xaxis!">
+                        </apx-chart>
                     </div>
                     <div class="presArt">
-                        <h3>Presión Arterial</h3>
+                        <h3>Presión arterial</h3>
+                        <apx-chart #presArt
+                            [series]="presArtOptions.series!" 
+                            [chart]="presArtOptions.chart!" 
+                            [title]="presArtOptions.title!"
+                            [xaxis]="presArtOptions.xaxis!">
+                        </apx-chart>
                     </div>
                     <div class="tempCorp">
-                        <h3>Temperatura</h3>
+                        <h3>Temperatura corporal</h3>
+                        <apx-chart #tempCorp
+                            [series]="tempCorpOptions.series!" 
+                            [chart]="tempCorpOptions.chart!" 
+                            [title]="tempCorpOptions.title!"
+                            [xaxis]="tempCorpOptions.xaxis!">
+                        </apx-chart>
                     </div>
                 </div>
                 <div class="buttons">

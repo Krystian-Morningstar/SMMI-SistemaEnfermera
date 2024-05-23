@@ -15,7 +15,8 @@ import { PacientsService } from '../../services/pacients.service';
 
 import { detalles } from 'src/app/models/pacientDetails.model';
 import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
-import { IMqttMessage } from 'ngx-mqtt';
+import { StadisticsService } from 'src/app/services/stadistics.service';
+import { Subscription } from 'rxjs';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -33,7 +34,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
   @ViewChild("oxig") oxigChart!: ChartComponent;
   @ViewChild("freqCard") freqCardChart!: ChartComponent;
   @ViewChild("presArtsist") presArtsistChart!: ChartComponent 
-  @ViewChild("presArtdiast") presArtdiastChart!: ChartComponent
   @ViewChild("tempCorp") tempCorpChart!: ChartComponent
 
   public oxigOptions: Partial<ChartOptions> | any = {
@@ -46,9 +46,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
     chart: {
       height: 130,
       type: "line"
-    },
-    title: {
-      text: "My First Angular Chart"
     },
     xaxis: {
       categories: ["1", "2", "3", "4", "5"]
@@ -66,9 +63,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       height: 130,
       type: "line"
     },
-    title: {
-      text: "My First Angular Chart"
-    },
     xaxis: {
       categories: ["1", "2", "3", "4", "5"]
     }
@@ -79,14 +73,15 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       {
         name: "My-series",
         data: [0, 0, 0, 0, 0]
+      },
+      {
+        name: "My-series2",
+        data: [0, 0, 0, 0, 0]
       }
     ],
     chart: {
       height: 130,
       type: "line"
-    },
-    title: {
-      text: "My First Angular Chart"
     },
     xaxis: {
       categories: ["1", "2", "3", "4", "5"]
@@ -104,13 +99,12 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       height: 130,
       type: "line"
     },
-    title: {
-      text: "My First Angular Chart"
-    },
     xaxis: {
       categories: ["1", "2", "3", "4", "5"]
     }
   }
+
+  subscriptions: Subscription[] = []
 
   pacientDetails: detalles = {
     id_ingreso: '',
@@ -134,7 +128,8 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
     private ruta: Router, 
     private jwtService: JwttokenService, 
     private basic: BasicVariablesService, 
-    private pacientsService: PacientsService)
+    private pacientsService: PacientsService,
+    private stadisticsService: StadisticsService)
     {}
 
   ngOnInit(): void {
@@ -147,7 +142,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       this.mqttService.connect()
       let id = this.route.snapshot.params['id']
       this.setDetails(this.pacientsService, id)
-      this.initializeCharts()
     }
     console.log(this.oxigOptions);
     
@@ -163,7 +157,7 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
         let details: any = result
         setTimeout(()=> {
           resolve(details)
-        }, 2000)
+        }, 1500)
       })
     })
   }
@@ -185,147 +179,41 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
           especialidad: result.id_especialidad.nombre
         }
         this.loading = false
-        let idRoom = `${this.pacientDetails.id_habitacion}`
-        this.setCharts(idRoom)
+        this.getStadistics(this.pacientDetails.id_habitacion)
       })
       .catch(err => {
         alert("ha ocurrido un problema: "+err.message)
       })
   }
 
-  setCharts(id: string){
-    // this.mqttService.subscribeTopic(id, "/oxig")
-    //   .subscribe((data: IMqttMessage)=>{
-    //     let item = JSON.parse(data.payload.toString())
-    //     this.oxigenChart.data.labels?.push(new Date().getSeconds)
-    //     this.oxigenChart.data.datasets[0].data.push(item.valor)
-    // })
-    // this.mqttService.subscribeTopic(id, "/freqCard")
-    //   .subscribe((data: IMqttMessage)=>{
-    //     let item = JSON.parse(data.payload.toString())
-    //     this.freqCardChart.data.labels?.push(new Date().getSeconds)
-    //     this.freqCardChart.data.datasets[0].data.push(item.valor)
-    // })
-    // this.mqttService.subscribeTopic(id, "/presArtsist")
-    //   .subscribe((data: IMqttMessage)=>{
-    //     let item = JSON.parse(data.payload.toString())
-    //     this.presArtChart.data.labels?.push(new Date().getSeconds)
-    //     this.presArtChart.data.datasets[0].data.push(item.valor)
-    // })
-    // this.mqttService.subscribeTopic(id, "/presArtdiast")
-    //   .subscribe((data: IMqttMessage)=>{
-    //     let item = JSON.parse(data.payload.toString())
-    //     this.presArtChart.data.datasets[1].data.push(item.valor)
-    // })
-    // this.mqttService.subscribeTopic(id, "/tempCorp")
-    //   .subscribe((data: IMqttMessage)=>{
-    //     let item = JSON.parse(data.payload.toString())
-    //     this.tempCorpChart.data.labels?.push(new Date().getSeconds)
-    //     this.tempCorpChart.data.datasets[0].data.push(item.valor)
-    // })
+  getStadistics(id: number){
+    let oxigSubscription = this.stadisticsService.getStadistics(id, "/oxig").subscribe(response => {
+      console.log(response)
+      this.oxigOptions.series[0] = response.series
+      this.oxigOptions.xaxis.categories = response.categories
+    })
+    this.subscriptions.push(oxigSubscription)
+    let freqCardSubscription = this.stadisticsService.getStadistics(id, "/freqCard").subscribe(response => {
+      this.freqCardOptions.series[0] = response.series
+      this.freqCardOptions.xaxis.categories = response.categories
+    })
+    this.subscriptions.push(freqCardSubscription)
+    let presArtsistSubscription = this.stadisticsService.getStadistics(id, "/presArtsist").subscribe(response => {
+      this.presArtOptions.series[0] = response.series[0]
+      this.presArtOptions.xaxis.categories = response.categories
+    })
+    this.subscriptions.push(presArtsistSubscription)
+    let presArtdiastSubscription = this.stadisticsService.getStadistics(id, "/presArtdiast").subscribe(response => {
+      this.presArtOptions.series[1] = response.series[0]
+    })
+    this.subscriptions.push(presArtdiastSubscription)
+    this.subscriptions.push(presArtsistSubscription)
+    let tempCorpSubscription = this.stadisticsService.getStadistics(id, "/tempCorp").subscribe(response => {
+      this.tempCorpOptions.series[0] = response.series
+      this.tempCorpOptions.xaxis.categories = response.categories
+    })
+    this.subscriptions.push(tempCorpSubscription)
   }
-
-  initializeCharts(){
-    
-    
-    // this.oxigenChart = new Chart("oxigen",{
-    //   type: 'line',
-    //   data: {
-    //     labels: [
-    //       this.fourBTime,
-    //       this.threeBTime,
-    //       this.twoBTime,
-    //       this.oneBTime, 
-    //       this.currentTime.getSeconds
-    //     ], 
-    //     datasets: [
-    //       {
-    //         label: "rpm",
-    //         data: [0, 0, 0, 0, 0],
-    //         backgroundColor: '#0023FF'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio:2.5
-    //   }
-    // })
-  
-    // this.freqCardChart = new Chart("freqCard",{
-    //   type: 'line',
-    //   data: {
-    //     labels: [
-    //       this.fourBTime,
-    //       this.threeBTime,
-    //       this.twoBTime,
-    //       this.oneBTime, 
-    //       this.currentTime.getSeconds
-    //     ], 
-    //     datasets: [
-    //       {
-    //         label: "dbm",
-    //         data: [0, 0, 0, 0, 0],
-    //         backgroundColor: '#FF0000'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio:2.5
-    //   }
-    // })
-  
-    // this.presArtChart = new Chart("presArt",{
-    //   type: 'line',
-    //   data: {
-    //     labels: [
-    //       this.fourBTime,
-    //       this.threeBTime,
-    //       this.twoBTime,
-    //       this.oneBTime, 
-    //       this.currentTime.getSeconds
-    //     ], 
-    //     datasets: [
-    //       {
-    //         label: "mmHg",
-    //         data: [0, 0, 0, 0, 0],
-    //         backgroundColor: '#13FF00'
-    //       },
-    //       {
-    //         label: "mmHg",
-    //         data: [0, 0, 0, 0, 0],
-    //         backgroundColor: '#00FF64'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio:2.5
-    //   }
-    // })
-  
-    // this.tempCorpChart = new Chart("tempCorp",{
-    //   type: 'line',
-    //   data: {
-    //     labels: [
-    //       this.fourBTime,
-    //       this.threeBTime,
-    //       this.twoBTime,
-    //       this.oneBTime, 
-    //       this.currentTime.getSeconds
-    //     ], 
-    //     datasets: [
-    //       {
-    //         label: "C°",
-    //         data: [0, 0, 0, 0, 0],
-    //         backgroundColor: '#4900FF'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio:2.5
-    //   }
-    // })
-  }
-
 
   showPrescriptions(){
     this.ruta.navigateByUrl('/prescriptions/'+this.pacientDetails.id_ingreso)
