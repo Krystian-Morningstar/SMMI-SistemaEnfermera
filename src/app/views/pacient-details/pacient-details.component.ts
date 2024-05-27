@@ -148,6 +148,9 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void{
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe()
+    })
     this.mqttService.disconnect()
   }
 

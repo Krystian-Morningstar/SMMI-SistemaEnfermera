@@ -4,7 +4,6 @@
 
 section {
     overflow: hidden;
-    /* scroll-behavior: smooth; */
     width: 100%;
     height: 100%;
 }
@@ -20,15 +19,48 @@ div.listContainer{
 }
 
 div.pacientContainer{
-    width: 21%;
+    width: 30%;
     margin: 1%;
-    background-image:url('../../../assets/img/camilla.jpg');
-    background-repeat: no-repeat;
-    background-size:cover;
+    background-color: rgb(255, 0, 0);
     color: white;
     border-radius: 9px;
     box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.4);
     padding-top: 0;
+}
+
+div.mainInfo{
+    width: 100%;
+    background-image:url('../../../assets/img/camilla.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    border-radius: 9px;
+}
+
+div.alertContainer{
+    width: 100%;
+}
+
+div.alertIcon{
+    float: left;
+    width: 30%;
+}
+
+.alertButton{
+    float: left;
+    width: 70%;
+}
+
+img#alerta{
+    width: 50%;
+    margin: 10%;
+}
+
+button#off{
+    margin-top: 8%;
+    font-size: medium;
+    color: white;
+    border: transparent;
+    background-color: rgb(255, 64, 64);
 }
 
 div.information{
@@ -74,7 +106,7 @@ img#cajaVacia{
 }
 
 h2{
-    font-size: larger;
+    font-size: x-large;
     font-weight: bold;
     margin: 0;
 }
@@ -84,7 +116,7 @@ h3{
 }
 
 h4{
-    font-size:x-small;
+    font-size:small;
     font-weight: bold;
 }
 
@@ -113,10 +145,6 @@ h2.loading,.bsTitle{
         flex-wrap: wrap;
     }
     
-    h2{
-        font-size: larger;
-    }
-    
     h3{
         font-size: larger;
     }
@@ -138,12 +166,12 @@ h2.loading,.bsTitle{
     h4{
         font-size:small;
     }
-
-    h2{
-        font-size: x-large;
-    }
     
     h3{
         font-size: x-large;
+    }
+
+    button#off{
+        font-size: large;
     }
 }

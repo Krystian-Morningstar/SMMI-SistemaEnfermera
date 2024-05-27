@@ -5,20 +5,30 @@
         </div>
         <ng-template #loaded class="ready">
             <div class="listContainer" *ngIf="!blankspace">
-                <div class="pacientContainer" *ngFor="let pacient of arregloPacientes" (click)="showDetails(pacient.id_ingreso)">
-                    <div class="title"><h2>Habitación {{pacient.nombre_habitacion}}</h2></div>
-                    <div class="information">
-                        <div class="name">
-                            <h3>{{pacient.nombres}} {{pacient.apellidos}}</h3><br>
-                        </div>
-                        <div class="sensorList">
-                            <div class="sensorContainer">
-                                <h4>Oxigenación: <span class="sensorContent">{{pacient.oxig}}</span></h4>
-                                <h4>Frecuencia cardíaca: <span class="sensorContent">{{pacient.freqCard}}</span></h4>
-                                <h4>P. A. Sistólica: <span class="sensorContent">{{pacient.presArtsist}}</span></h4>
-                                <h4>P. A. Diastólico: <span class="sensorContent">{{pacient.presArtdiast}}</span></h4>
-                                <h4>Temperatura corporal: <span class="sensorContent">{{pacient.tempCorp}}</span></h4>
+                <div class="pacientContainer" *ngFor="let pacient of arregloPacientes">
+                    <div class="mainInfo" (click)="showDetails(pacient.id_ingreso)">
+                        <div class="title"><h2>Habitación {{pacient.nombre_habitacion}}</h2></div>
+                        <div class="information">
+                            <div class="name">
+                                <h3>{{pacient.nombres}} {{pacient.apellidos}}</h3><br>
                             </div>
+                            <div class="sensorList">
+                                <div class="sensorContainer">
+                                    <h4>Oxigenación: <span class="sensorContent" [ngStyle]="{ 'color': pacient.oxig.alerta==true ? 'red' : 'green' }">{{pacient.oxig.valor}}</span></h4>
+                                    <h4>Frecuencia cardíaca: <span class="sensorContent" [ngStyle]="{ 'color': pacient.freqCard.alerta==true ? 'red' : 'green' }">{{pacient.freqCard.valor}}</span></h4>
+                                    <h4>P. A. Sistólica: <span class="sensorContent" [ngStyle]="{ 'color': pacient.presArtsist.alerta==true ? 'red' : 'green' }">{{pacient.presArtsist.valor}}</span></h4>
+                                    <h4>P. A. Diastólico: <span class="sensorContent" [ngStyle]="{ 'color': pacient.presArtdiast.alerta==true ? 'red' : 'green' }">{{pacient.presArtdiast.valor}}</span></h4>
+                                    <h4>Temperatura corporal: <span class="sensorContent" [ngStyle]="{ 'color': pacient.tempCorp.alerta==true ? 'red' : 'green' }">{{pacient.tempCorp.valor}}</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alertContainer" *ngIf="pacient.alarm == true">
+                        <div class="alertIcon">
+                            <img id="alerta" src="assets/icon/advertencia.png">
+                        </div>
+                        <div class="alertButton">
+                            <button id="off" (click)="turnOffAlarm(pacient.id_habitacion)">Desactivar alarma</button>
                         </div>
                     </div>
                 </div>

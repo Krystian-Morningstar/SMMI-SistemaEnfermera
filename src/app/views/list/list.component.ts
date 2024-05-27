@@ -20,6 +20,7 @@ export class ListComponent implements OnInit, OnDestroy{
   
   arregloPacientes: informacion[] = []
   arregloSensores: subscripcionPack[] = []
+  arregloAlarmas: Subscription[] = []
 
   blankspace: boolean = false
   loading: boolean = true
@@ -97,13 +98,30 @@ export class ListComponent implements OnInit, OnDestroy{
         apellidos: room.apellidos,
         id_habitacion: room.id_habitacion.id_habitacion,
         nombre_habitacion: room.id_habitacion.nombre_habitacion,
-        oxig: 0,
-        freqCard: 0,
-        presArtsist: 0,
-        presArtdiast: 0,
-        tempCorp: 0
+        oxig: {
+          alerta: false,
+          valor: 0
+        },
+        freqCard: {
+          alerta: false,
+          valor: 0
+        },
+        presArtsist: {
+          alerta: false,
+          valor: 0
+        },
+        presArtdiast: {
+          alerta: false,
+          valor: 0
+        },
+        tempCorp: {
+          alerta: false,
+          valor: 0
+        },
+        alarm: false
       }
       this.arregloPacientes.push(array)
+      this.setAlarmSubscription(array.id_habitacion)
     })
     this.setSubscribtions()
     this.loading = false
@@ -120,31 +138,31 @@ export class ListComponent implements OnInit, OnDestroy{
           arregloMenor.push(this.eventMqtt.subscribeTopic(
             paciente.id_habitacion, "/oxig").subscribe((data: IMqttMessage) => {
               let item = JSON.parse(data.payload.toString())
-              paciente.oxig = item.valor
+              paciente.oxig.valor = item.valor
             }
           ))
           arregloMenor.push(this.eventMqtt.subscribeTopic(
             paciente.id_habitacion, "/freqCard").subscribe((data: IMqttMessage) => {
               let item = JSON.parse(data.payload.toString())
-              paciente.freqCard = item.valor
+              paciente.freqCard.valor = item.valor
             }
           ))
           arregloMenor.push(this.eventMqtt.subscribeTopic(
             paciente.id_habitacion, "/presArtsist").subscribe((data: IMqttMessage) => {
               let item = JSON.parse(data.payload.toString())
-              paciente.presArtsist = item.valor
+              paciente.presArtsist.valor = item.valor
             }
           ))
           arregloMenor.push(this.eventMqtt.subscribeTopic(
             paciente.id_habitacion, "/presArtdiast").subscribe((data: IMqttMessage) => {
               let item = JSON.parse(data.payload.toString())
-              paciente.presArtdiast = item.valor
+              paciente.presArtdiast.valor = item.valor
             }
           ))
           arregloMenor.push(this.eventMqtt.subscribeTopic(
             paciente.id_habitacion, "/tempCorp").subscribe((data: IMqttMessage) => {
               let item = JSON.parse(data.payload.toString())
-              paciente.tempCorp = item.valor
+              paciente.tempCorp.valor = item.valor
             }
           ))
           arregloMayor.push({
@@ -156,6 +174,47 @@ export class ListComponent implements OnInit, OnDestroy{
           console.log("el cuarto ya existe");
         }
         this.arregloSensores = arregloMayor
+      })
+  }
+
+  setAlarmSubscription(id: number){
+    if(this.arregloAlarmas[id] == null){
+      let alarmSubscription = this.eventMqtt.subscribeToAlarm(id).subscribe((data: IMqttMessage) => {
+        let item = JSON.parse(data.payload.toString())
+        console.log(item);
+        switch(item.sensor){
+          case 'Oxigenacion':
+            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.oxig.alerta = true
+            break;
+          case 'Frecuencia Cardiaca':
+            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.freqCard.alerta = true
+            break;
+          case 'Presion Arterial Sistolica':
+            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtsist.alerta = true
+            break;
+          case 'Presion Arterial Diastolica':
+            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtdiast.alerta = true
+            break;
+          case 'Temperatura Corporal':
+            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.tempCorp.alerta = true
+            break;
+        }
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.alarm = true
+      })
+      this.arregloAlarmas.push(alarmSubscription)
+    }
+  }
+
+  turnOffAlarm(roomId: number){
+    this.eventMqtt.turnOffSirenHorn(roomId)
+      .then(result => {
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.alarm = false
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.oxig.alerta = false
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.freqCard.alerta = false
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.presArtdiast.alerta = false
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.presArtsist.alerta = false
+        this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.tempCorp.alerta = false
+        console.log(result);
       })
   }
 

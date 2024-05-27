@@ -7,11 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MqttSensorsService {
 
-  baseUrl = ''
-
-  constructor(private _mqttService: MqttService) {
-    this.baseUrl = 'SMMI'
-  }
+  constructor(private _mqttService: MqttService) {}
 
   connect(): Observable<MqttConnectionState>{
     const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
@@ -40,8 +36,32 @@ export class MqttSensorsService {
   }
 
   subscribeTopic(roomId: number, topic: string): Observable<IMqttMessage>{
-    let topicUrl = `${this.baseUrl}`+'/Habitacion'+`${roomId}`+`${topic}`
+    let topicUrl = `SMMI/Habitacion${roomId}${topic}`
     console.log(topicUrl)
     return this._mqttService.observe(topicUrl)
+  }
+
+  subscribeToAlarm(idRoom: number): Observable<IMqttMessage>{
+    let alarmUrl = `SMMI/Habitacion${idRoom}/emergencia`
+    return this._mqttService.observe(alarmUrl)
+  }
+
+  turnOffSirenHorn(roomId: number){
+    return new Promise((resolve, reject) => {
+      let sirenUrl = `SMMI/Habitacion${roomId}/sirena`
+      let hornUrl = `SMMI/Habitacion${roomId}/bocina`
+      let value = {
+        value: 1
+      }
+      this._mqttService.publish(sirenUrl, JSON.stringify(value)).subscribe(() => {
+        console.log("desactivando Sirena");
+      })
+      this._mqttService.publish(hornUrl, JSON.stringify(value)).subscribe(() => {
+        console.log("desactivando bocina");
+      })
+      setTimeout(()=>{
+        resolve("alarma apagada")
+      }, 1000)
+    })
   }
 }
