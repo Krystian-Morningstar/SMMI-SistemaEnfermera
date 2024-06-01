@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router  } from '@angular/router';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -143,7 +142,6 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       let id = this.route.snapshot.params['id']
       this.setDetails(this.pacientsService, id)
     }
-    console.log(this.oxigOptions);
     
   }
 
@@ -192,18 +190,30 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
   getStadistics(id: number){
     let oxigSubscription = this.stadisticsService.getStadistics(id, "/oxig").subscribe(response => {
       console.log(response)
-      this.oxigOptions.series[0] = response.series
-      this.oxigOptions.xaxis.categories = response.categories
+      this.oxigOptions.series[0] = response.series[0]
+      let cont = 0
+      response.categories.forEach((category: string) => {
+        this.oxigOptions.xaxis.categories[cont] = category
+        cont ++
+      })
     })
     this.subscriptions.push(oxigSubscription)
     let freqCardSubscription = this.stadisticsService.getStadistics(id, "/freqCard").subscribe(response => {
-      this.freqCardOptions.series[0] = response.series
-      this.freqCardOptions.xaxis.categories = response.categories
+      this.freqCardOptions.series[0] = response.series[0]
+      let cont = 0
+      response.categories.forEach((category: string) => {
+        this.freqCardOptions.xaxis.categories[cont] = category
+        cont ++
+      })
     })
     this.subscriptions.push(freqCardSubscription)
     let presArtsistSubscription = this.stadisticsService.getStadistics(id, "/presArtsist").subscribe(response => {
       this.presArtOptions.series[0] = response.series[0]
-      this.presArtOptions.xaxis.categories = response.categories
+      let cont = 0
+      response.categories.forEach((category: string) => {
+        this.presArtOptions.xaxis.categories[cont] = category
+        cont ++
+      })
     })
     this.subscriptions.push(presArtsistSubscription)
     let presArtdiastSubscription = this.stadisticsService.getStadistics(id, "/presArtdiast").subscribe(response => {
@@ -212,8 +222,12 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
     this.subscriptions.push(presArtdiastSubscription)
     this.subscriptions.push(presArtsistSubscription)
     let tempCorpSubscription = this.stadisticsService.getStadistics(id, "/tempCorp").subscribe(response => {
-      this.tempCorpOptions.series[0] = response.series
-      this.tempCorpOptions.xaxis.categories = response.categories
+      this.tempCorpOptions.series[0] = response.series[0]
+      let cont = 0
+      response.categories.forEach((category: string) => {
+        this.tempCorpOptions.xaxis.categories[cont] = category
+        cont ++
+      })
     })
     this.subscriptions.push(tempCorpSubscription)
   }

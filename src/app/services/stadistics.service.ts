@@ -14,7 +14,10 @@ export class StadisticsService {
   }
 
   getStadistics(idRoom: number, topic: string): Observable<any>{
-    const urlParameters = `${this.baseUrl}?habitacion=${idRoom}&topico=${topic}`
+    const date = new Date();
+    const hours = date.getHours()
+    const formattedDate = date.toISOString().split('T')[0].replace(/-/g, ' ')
+    const urlParameters = `${this.baseUrl}?habitacion=${idRoom}&topico=${topic}&fechainit=${formattedDate}&hinit=${hours}`
     return this.http.get(urlParameters)
   }
 }

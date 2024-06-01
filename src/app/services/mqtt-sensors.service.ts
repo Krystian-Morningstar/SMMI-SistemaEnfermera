@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class MqttSensorsService {
 
-  constructor(private _mqttService: MqttService) {}
+  topicUrl = ''
+
+  constructor(private _mqttService: MqttService) {
+    this.topicUrl = "SMMI/Sensores/Habitacion"
+  }
 
   connect(): Observable<MqttConnectionState>{
     const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
@@ -36,13 +40,14 @@ export class MqttSensorsService {
   }
 
   subscribeTopic(roomId: number, topic: string): Observable<IMqttMessage>{
-    let topicUrl = `SMMI/Habitacion${roomId}${topic}`
+    let topicUrl = `${this.topicUrl}${roomId}${topic}`
     console.log(topicUrl)
     return this._mqttService.observe(topicUrl)
   }
 
   subscribeToAlarm(idRoom: number): Observable<IMqttMessage>{
     let alarmUrl = `SMMI/Habitacion${idRoom}/emergencia`
+    console.log(alarmUrl);
     return this._mqttService.observe(alarmUrl)
   }
 
@@ -51,17 +56,13 @@ export class MqttSensorsService {
       let sirenUrl = `SMMI/Habitacion${roomId}/sirena`
       let hornUrl = `SMMI/Habitacion${roomId}/bocina`
       let value = {
-        value: 1
+        value: false
       }
-      this._mqttService.publish(sirenUrl, JSON.stringify(value)).subscribe(() => {
-        console.log("desactivando Sirena");
-      })
-      this._mqttService.publish(hornUrl, JSON.stringify(value)).subscribe(() => {
-        console.log("desactivando bocina");
-      })
+      this._mqttService.publish(sirenUrl, JSON.stringify(value)).subscribe(()=> console.log("desactivando sirena "+ JSON.stringify(value)))
+      this._mqttService.publish(hornUrl, JSON.stringify(value)).subscribe(()=> console.log("desactivando bocina" + JSON.stringify(value)))
       setTimeout(()=>{
         resolve("alarma apagada")
-      }, 1000)
+      }, 2000)
     })
   }
 }

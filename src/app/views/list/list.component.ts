@@ -64,6 +64,7 @@ export class ListComponent implements OnInit, OnDestroy{
         sensor.unsubscribe()
       })
     })
+    this.arregloAlarmas.forEach(alarma => alarma.unsubscribe)
     this.eventMqtt.disconnect()
   }
 
@@ -121,8 +122,8 @@ export class ListComponent implements OnInit, OnDestroy{
         alarm: false
       }
       this.arregloPacientes.push(array)
-      this.setAlarmSubscription(array.id_habitacion)
     })
+    this.setAlarmSubscription()
     this.setSubscribtions()
     this.loading = false
   }
@@ -177,8 +178,9 @@ export class ListComponent implements OnInit, OnDestroy{
       })
   }
 
-  setAlarmSubscription(id: number){
-    if(this.arregloAlarmas[id] == null){
+  setAlarmSubscription(){
+    this.arregloPacientes.forEach(paciente =>{
+      let id = paciente.id_habitacion
       let alarmSubscription = this.eventMqtt.subscribeToAlarm(id).subscribe((data: IMqttMessage) => {
         let item = JSON.parse(data.payload.toString())
         console.log(item);
@@ -202,7 +204,9 @@ export class ListComponent implements OnInit, OnDestroy{
         this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.alarm = true
       })
       this.arregloAlarmas.push(alarmSubscription)
-    }
+      console.log(alarmSubscription);
+      
+    })
   }
 
   turnOffAlarm(roomId: number){

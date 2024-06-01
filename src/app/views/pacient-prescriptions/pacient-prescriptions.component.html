@@ -1,5 +1,5 @@
 <section>
-    <div class="listContainer">
+    <div class="listContainer" *ngIf="!blankspace; else blank">
         <div class="prescriptionContainer" *ngFor="let pres of prescriptionList">
             <div class="title"><h1>Receta médica</h1></div>
             <div class="information">
@@ -13,4 +13,8 @@
             </div>
         </div>
     </div>
+    <ng-template #blank class="empty">
+        <h2 class="bsTitle">No tiene pacientes asignados en este momento</h2>
+        <img id="cajaVacia" src="assets/icon/caja.png" alt="vacío">
+    </ng-template>
 </section>

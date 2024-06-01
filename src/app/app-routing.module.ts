@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'details/:id', component: PacientDetailsComponent },
   { path: 'reports/:id', component: PacientReportsComponent },
   { path: 'prescriptions/:id', component: PacientPrescriptionsComponent },
-  { path: 'reporting', component: ReportingComponent },
+  { path: 'reporting/:id', component: ReportingComponent },
 
   { path: '', redirectTo: '/list', pathMatch: 'full'}
 ];

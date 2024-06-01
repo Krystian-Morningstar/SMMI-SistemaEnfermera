@@ -1,13 +1,23 @@
 <section>
-    <div class="listContainer">
+    <div class="listContainer" *ngIf="!blankspace; else blank">
         <div class="reportContainer" *ngFor="let report of reportList">
-            <div class="title"><h1>Reporte de alarma</h1></div>
+            <div class="title">
+                <h1>Reporte de alarma</h1>
+                <button  (click)="reporting(report.id)" *ngIf="report.completado == false">
+                    <img src="assets/img/editar.png">
+                </button>
+            </div>
             <div class="information">
-                <p class="hour">Hora de alarma: <span>{{report.hour}}</span></p>
-                <p class="date">Fecha de alarma: <span>{{report.date}}</span></p>
-                <p>Evento crítico: <span>{{report.event}}</span></p>
-                <p>Acciones tomadas: <span>{{report.actions}}</span></p>
+                <p class="hour">Hora de alarma: <span>{{report.hora}}</span></p>
+                <p class="date">Fecha de alarma: <span>{{report.fecha}}</span></p>
+                <p class="duration">Duración: <span>{{report.duracion}}</span></p>
+                <p class="event">Evento crítico: <span>{{report.evento}}</span></p>
+                <p class="action">Acciones tomadas: <span>{{report.acciones}}</span></p>
             </div>
         </div>
     </div>
+    <ng-template #blank class="empty">
+        <h2 class="bsTitle">No tiene pacientes asignados en este momento</h2>
+        <img id="cajaVacia" src="assets/icon/caja.png" alt="vacío">
+    </ng-template>
 </section>

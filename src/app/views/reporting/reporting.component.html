@@ -6,15 +6,13 @@
         <div class="formContainer">
             <form>
                 <div class="inputs">
-                    <p>Paciente: </p>
-                    <p>Hora alarma: </p>
                     <label for="event">Evento crítico:</label>
-                    <input type="text" name="event" id="event">
+                    <input type="text" name="event" id="event" required [(ngModel)]="datos.evento_critico">
                     <label for="actions">Acciones tomadas:</label>
-                    <input type="text" name="actions" id="actions">
+                    <input type="text" name="actions" id="actions" required [(ngModel)]="datos.acciones_tomadas">
                 </div>
                 <div class="button">
-                    <button><i class="glyphicon glyphicon-ok-sign"></i></button>
+                    <button (click)="updating()"><i class="glyphicon glyphicon-ok-sign"></i></button>
                 </div>
             </form>
         </div>
