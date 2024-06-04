@@ -1,14 +1,15 @@
 <section class="user" (mouseleave)="closeTab()">
     <div class="userIcon">
-        <i class="fa fa-user-circle"></i>
+        <img src="assets/img/enfermera.jpeg" alt="foto">
     </div>
     <div class="userInfo">
-        <h2>Nombre</h2>
-        <p>Megan</p>
+        <h2>Enfermera</h2>
+        <p>{{ enfermera.nombre }}</p>
         <h2>Matrícula</h2>
-        <p>S21006789</p>
+        <p>{{ enfermera.matricula }}</p>
+        <h2>Teléfono</h2>
+        <p>{{ enfermera.telefono }}</p>
         <br>
-        <p id="pro">Enfermera</p>
     </div>
     <div class="exit">
         <button (click)="exit()" class="exit">

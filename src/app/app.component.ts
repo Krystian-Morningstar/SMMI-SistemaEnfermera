@@ -23,4 +23,10 @@ export class AppComponent implements OnInit{
     }
   }
   
+  closeTab(){
+    console.log(this.basic.getUserTabStatus());
+    if(this.basic.getUserTabStatus() == true){
+      this.basic.switchTab()
+    }
+  }
 }

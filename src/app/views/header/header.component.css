@@ -28,6 +28,7 @@ div.userDiv{
     width: 95px;
     height: 100%;
     right: 0;
+    top: 0;
 }
 
 div.smmi{
@@ -60,7 +61,6 @@ button.userButton{
     background-color: transparent;
     border: none;
     font-size: 4em;
-    float: right;
 }
 
 

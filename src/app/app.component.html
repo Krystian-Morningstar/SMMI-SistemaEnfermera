@@ -1,7 +1,7 @@
 <section class="home">
     <app-user-tab class="userTab" *ngIf="isLogged()==true && userTab()==true"></app-user-tab>
     <app-header class="header" *ngIf="isLogged()==true"></app-header>
-    <router-outlet class="container" *ngIf="isLogged()==true">
+    <router-outlet class="container" *ngIf="isLogged()==true" (click)="closeTab()">
         <app-danger-alert class="danger" *ngIf="danger==true"></app-danger-alert>
     </router-outlet>
 </section>

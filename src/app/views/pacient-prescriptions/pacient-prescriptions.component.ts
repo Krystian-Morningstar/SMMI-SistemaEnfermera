@@ -44,7 +44,7 @@ export class PacientPrescriptionsComponent implements OnInit, OnDestroy{
           let hora = `${hour}:${minute} `
           let fecha = `${year}-${month}-${day}`
           let presc: receta = {
-            medico: `${details.medico.nombre} ${details.medico.apellidos}`,
+            medico: `${details.medico.nombres} ${details.medico.apellidos}`,
             medicina: details.medicamentos,
             instrucciones: details.indicaciones_addic,
             hora: hora,

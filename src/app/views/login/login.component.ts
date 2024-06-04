@@ -17,7 +17,7 @@ export class LoginComponent {
   }
 
   prueba = {
-    matricula:"E90245M",
+    matricula:"E90245I",
     contraseña:"segura123"
   }
 
@@ -25,12 +25,17 @@ export class LoginComponent {
 
   onSubmit(){
 
-    // if (!this.usuario.tuition|| !this.usuario.password) {
-    //   this.showToast('blankFieldsToast');
-    //   return; 
-    // }
+    if (!this.usuario.tuition|| !this.usuario.password) {
+      this.showToast('blankFieldsToast');
+      return; 
+    }
 
-      this.auth.login(this.prueba).subscribe(result => {
+    let test = {
+      matricula: this.usuario.tuition,
+      contraseña: this.usuario.password
+    } 
+
+      this.auth.login(test).subscribe(result => {
         if(result.message == "Sesion_Activa"){
           this.basic.login()
           this.jwtService.setToken(result.token)

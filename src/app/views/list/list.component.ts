@@ -53,6 +53,7 @@ export class ListComponent implements OnInit, OnDestroy{
         })
         .catch((err)=>{
           this.blankspace = true
+          this.loading = false
           console.log("Error al leer los cuartos: ",err)
         })
     }
@@ -204,7 +205,7 @@ export class ListComponent implements OnInit, OnDestroy{
         this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.alarm = true
       })
       this.arregloAlarmas.push(alarmSubscription)
-      console.log(alarmSubscription);
+      console.log(alarmSubscription);         
       
     })
   }

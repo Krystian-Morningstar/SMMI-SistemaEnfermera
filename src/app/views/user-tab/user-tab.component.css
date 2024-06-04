@@ -8,20 +8,25 @@ section{
     min-height: 500px;
     position: fixed;
     right: 0;
-    background-color: darkgreen;
+    background-color: #679C5A;
     z-index: 3;
     opacity: 0.85;
 }
 
 div.userIcon{
     width: fit-content;
-    height: 30%;
+    height: 35%;
     text-align: center;
     font-size: 110px;
     padding-top: 15%;
-    padding-bottom: auto;
     color: rgba(255, 255, 255, 0.9);
     margin: auto;
+}
+
+img{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
 }
 
 div.userInfo{
@@ -84,16 +89,21 @@ p{
     }
 
     h2{
-        font-size: 1.1em;
+        font-size: 0.9em;
         font-weight: bolder;
     }
     
     p{
-        font-size: 0.7em;
+        font-size: 0.55em;
     }
     
     #pro{
         font-size: 1.1em;
         font-weight: bold;
+    }
+
+    img{
+        width: 150px;
+        height: 150px;
     }
 }

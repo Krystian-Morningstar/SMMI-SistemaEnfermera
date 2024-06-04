@@ -6,8 +6,8 @@ import { signal } from "@angular/core"
 })
 export class BasicVariablesService {
 
-  isLogged = signal(false)
-  userTab = signal(false)
+  private isLogged = signal(false)
+  private userTab = signal(false)
 
   constructor() { }
 

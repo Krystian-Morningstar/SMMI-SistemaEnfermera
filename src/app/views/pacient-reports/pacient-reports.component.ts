@@ -65,4 +65,5 @@ export class PacientReportsComponent implements OnInit, OnDestroy{
     localStorage.setItem('registerId', this.ingresoId)
     this.ruta.navigateByUrl('/reporting/'+reportId)
   }
+  
 }
