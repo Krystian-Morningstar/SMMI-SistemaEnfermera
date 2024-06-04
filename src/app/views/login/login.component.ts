@@ -16,11 +16,6 @@ export class LoginComponent {
     password: ""
   }
 
-  prueba = {
-    matricula:"E90245I",
-    contraseña:"segura123"
-  }
-
   constructor(private auth: AuthService, private jwtService: JwttokenService, private basic: BasicVariablesService){}
 
   onSubmit(){

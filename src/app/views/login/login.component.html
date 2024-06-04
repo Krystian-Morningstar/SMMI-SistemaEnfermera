@@ -1,34 +1,39 @@
-<section class="login">
-    <div class="wrapper">
-        <form (submit)="onSubmit()" id="loginForm">
-            <h1>Iniciar Sesión</h1>
-            <img src="assets/img/logo.jpg" alt="logo" class="logo">
-            
-            <div class="input-box">
-                <input type="text" placeholder="Matricula" name="tuition" required [(ngModel)]="usuario.tuition">
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Contraseña" name="password" #passwordInput required [(ngModel)]="usuario.password">
-                <button type="button" class="toggle-password" (click)="togglePasswordVisibility(passwordInput)">
-                    <i class="fa fa-eye"></i>
-                </button>
-            </div>
-
-            <button type="submit" class="btn">Iniciar Sesión</button>
-
-        </form>
-    </div>
-
-    <div class="toast success" id="successToast">
-        Autenticación exitosa
-    </div>
-
-    <div class="toast error" id="errorToast">
-        Autenticación fallida. Por favor, verifica tus credenciales.
-    </div>
-
-    <div class="toast error" id="blankFieldsToast">
-        Completa los campos
-    </div>
-</section>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="login">
+        <div class="wrapper">
+            <form (submit)="onSubmit()" id="loginForm">
+                <h1>Iniciar Sesión</h1>
+                <img src="assets/img/logo.jpg" alt="logo" class="logo">
+                
+                <div class="input-box">
+                    <input type="text" placeholder="Matricula" name="tuition" required [(ngModel)]="usuario.tuition">
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Contraseña" name="password" #passwordInput required [(ngModel)]="usuario.password">
+                    <button type="button" class="toggle-password" (click)="togglePasswordVisibility(passwordInput)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+    
+                <button type="submit" class="btn">Iniciar Sesión</button>
+    
+            </form>
+        </div>
+    
+        <div class="toast success" id="successToast">
+            Autenticación exitosa
+        </div>
+    
+        <div class="toast error" id="errorToast">
+            Autenticación fallida. Por favor, verifica tus credenciales.
+        </div>
+    
+        <div class="toast error" id="blankFieldsToast">
+            Completa los campos
+        </div>
+    </section>
+</body>
