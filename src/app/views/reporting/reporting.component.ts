@@ -31,13 +31,4 @@ export class ReportingComponent {
       })
       .catch((err) => console.log(err))
   }
-
-  // updating(){
-  //   this.reports.updateReport(this.reporteId, this.datos).subscribe((response) => {
-  //     console.log("respuesta del servidor", response);
-  //   }, error => {
-  //     console.error("error", error);
-      
-  //   })
-  // }
 }
