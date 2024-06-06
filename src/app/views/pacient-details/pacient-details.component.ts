@@ -16,6 +16,7 @@ import { detalles } from 'src/app/models/pacientDetails.model';
 import { MqttSensorsService } from 'src/app/services/mqtt-sensors.service';
 import { StadisticsService } from 'src/app/services/stadistics.service';
 import { Subscription } from 'rxjs';
+import { ReportsService } from 'src/app/services/reports.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -120,6 +121,7 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
   }
   
   loading: boolean = true
+  thereReports: boolean = false
 
   constructor(
     private readonly mqttService: MqttSensorsService,
@@ -128,7 +130,8 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
     private jwtService: JwttokenService, 
     private basic: BasicVariablesService, 
     private pacientsService: PacientsService,
-    private stadisticsService: StadisticsService)
+    private stadisticsService: StadisticsService,
+    private reportsService: ReportsService)
     {}
 
   ngOnInit(): void {
@@ -141,6 +144,7 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       this.mqttService.connect()
       let id = this.route.snapshot.params['id']
       this.setDetails(this.pacientsService, id)
+      this.detectReports(id)
     }
     
   }
@@ -230,6 +234,19 @@ export class PacientDetailsComponent implements OnInit, OnDestroy{
       })
     })
     this.subscriptions.push(tempCorpSubscription)
+  }
+
+  detectReports(id: string){
+    setTimeout(()=>{
+      this.reportsService.getIncompletes(id).subscribe((response: any[]) => {
+        if(response.length > 0){
+          this.thereReports = true
+        }
+        else{
+          this.thereReports = false
+        }
+      })
+    }, 4000)
   }
 
   showPrescriptions(){

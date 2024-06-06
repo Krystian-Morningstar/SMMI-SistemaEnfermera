@@ -15,7 +15,7 @@ export class MqttSensorsService {
 
   connect(): Observable<MqttConnectionState>{
     const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-      hostname: "127.0.0.1",
+      hostname: "192.168.137.137",
       port: 8083,
       protocol: "ws",
       path: '/mqtt'
@@ -62,7 +62,7 @@ export class MqttSensorsService {
       this._mqttService.publish(hornUrl, JSON.stringify(value)).subscribe(()=> console.log("desactivando bocina" + JSON.stringify(value)))
       setTimeout(()=>{
         resolve("alarma apagada")
-      }, 2000)
+      }, 120000)
     })
   }
 }

@@ -16,7 +16,6 @@ import { UserTabComponent } from './views/user-tab/user-tab.component';
 import { PacientDetailsComponent } from './views/pacient-details/pacient-details.component';
 import { PacientPrescriptionsComponent } from './views/pacient-prescriptions/pacient-prescriptions.component';
 import { PacientReportsComponent } from './views/pacient-reports/pacient-reports.component';
-import { DangerAlertComponent } from './views/danger-alert/danger-alert.component';
 import { ReportingComponent } from './views/reporting/reporting.component';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { ReportingComponent } from './views/reporting/reporting.component';
     PacientDetailsComponent,
     PacientPrescriptionsComponent,
     PacientReportsComponent,
-    DangerAlertComponent,
     ReportingComponent
   ],
   imports: [

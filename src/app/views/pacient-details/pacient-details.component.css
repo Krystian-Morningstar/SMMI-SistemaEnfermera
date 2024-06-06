@@ -94,6 +94,32 @@ button{
     box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.4);
 }
 
+#reports{
+    position: relative;
+    cursor: pointer;
+}
+
+#redCircle{
+    position: absolute;
+    top: -5px; /* Adjust as needed */
+    right: -5px; /* Adjust as needed */
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    background-color: red; /* Circle color */
+    border-radius: 50%;
+    animation: blink 1s infinite;
+    z-index: 3;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
 h2{
     margin: 0;
     color: white;
@@ -111,10 +137,6 @@ h2.loading{
 
 h3{
     font-size: large;
-}
-
-#oxig,#freqCard,#presArt,#tempCorp{
-    width: 45%;
 }
 
 @media only screen and (max-width: 900px){

@@ -10,7 +10,7 @@ export class PacientsService {
   baseUrl: string = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "http://localhost:3000/api/ingresos/"
+    this.baseUrl = "http://192.168.137.137:3000/api/ingresos/"
   }
 
   getAllPacients(nurse: string): Observable<any>{

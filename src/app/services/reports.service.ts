@@ -11,18 +11,18 @@ export class ReportsService {
   baseUrl = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "http://localhost:3000/api/alertas-reportes/"
+    this.baseUrl = "http://192.168.137.137:3000/api/alertas-reportes/"
   }
 
   getReports(pacientId: string): Observable<any>{
     return this.http.get(`${this.baseUrl}${pacientId}`)
   }
 
-  getCompletes(pacientId: string){
+  getCompletes(pacientId: string): Observable<any>{
     return this.http.get(`${this.baseUrl}comp/${pacientId}`)
   }
 
-  getIncompletes(pacientId: string){
+  getIncompletes(pacientId: string): Observable<any>{
     return this.http.get(`${this.baseUrl}incomp/${pacientId}`)
   }
 
@@ -37,7 +37,7 @@ export class ReportsService {
       })
       setTimeout(()=>{
         resolve("actualizado")
-      }, 500)
+      }, 1000)
     })
   }
   

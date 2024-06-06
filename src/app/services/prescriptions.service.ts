@@ -10,7 +10,7 @@ export class PrescriptionsService {
   baseUrl = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl  = 'http://localhost:3000/api/recetas/'
+    this.baseUrl  = 'http://192.168.137.137:3000/api/recetas/'
   }
 
   getPrescriptions(id: string): Observable<any>{

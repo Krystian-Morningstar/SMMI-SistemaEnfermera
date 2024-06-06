@@ -10,7 +10,7 @@ export class AuthService {
   baseUrl: string = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "http://localhost:3000/api/auth/login"
+    this.baseUrl = "http://192.168.137.137:3000/api/auth/login"
   }
   
   login(user: any): Observable<any>{

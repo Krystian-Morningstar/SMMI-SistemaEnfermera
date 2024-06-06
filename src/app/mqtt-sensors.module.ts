@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: '127.0.0.1',
+  hostname: '192.168.137.137',
   port: 8083,
   protocol: "ws",
   path: '/mqtt',
