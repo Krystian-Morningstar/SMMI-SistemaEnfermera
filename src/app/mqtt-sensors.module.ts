@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from 'src/environment/environment';
 
 import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: '192.168.137.137',
+  hostname: environment.url_mqtt,
   port: 8083,
   protocol: "ws",
   path: '/mqtt',

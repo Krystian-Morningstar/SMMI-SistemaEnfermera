@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IMqttMessage, MqttService, MqttConnectionState, IMqttServiceOptions } from 'ngx-mqtt';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class MqttSensorsService {
 
   connect(): Observable<MqttConnectionState>{
     const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-      hostname: "192.168.137.137",
+      hostname: environment.url_mqtt,
       port: 8083,
       protocol: "ws",
       path: '/mqtt'
@@ -62,7 +63,7 @@ export class MqttSensorsService {
       this._mqttService.publish(hornUrl, JSON.stringify(value)).subscribe(()=> console.log("desactivando bocina" + JSON.stringify(value)))
       setTimeout(()=>{
         resolve("alarma apagada")
-      }, 120000)
+      }, 2000)
     })
   }
 }

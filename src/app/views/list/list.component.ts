@@ -10,6 +10,7 @@ import { JwttokenService } from '../../services/jwttoken.service';
 import { BasicVariablesService } from '../../services/basic-variables.service';
 import { informacion } from 'src/app/models/pacientCard.model';
 import { subscripcionPack } from 'src/app/models/sensorSub.model';
+import { alarma } from 'src/app/models/alarm.model';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,7 @@ export class ListComponent implements OnInit, OnDestroy{
   
   arregloPacientes: informacion[] = []
   arregloSensores: subscripcionPack[] = []
-  arregloAlarmas: Subscription[] = []
+  arregloAlarmas: alarma[] = []
 
   blankspace: boolean = false
   loading: boolean = true
@@ -65,7 +66,7 @@ export class ListComponent implements OnInit, OnDestroy{
         sensor.unsubscribe()
       })
     })
-    this.arregloAlarmas.forEach(alarma => alarma.unsubscribe)
+    this.arregloAlarmas.forEach(alarma => alarma.alarma.unsubscribe())
     this.eventMqtt.disconnect()
   }
 
@@ -123,8 +124,8 @@ export class ListComponent implements OnInit, OnDestroy{
         alarm: false
       }
       this.arregloPacientes.push(array)
+      this.setAlarmSubscription(room.id_habitacion.id_habitacion)
     })
-    this.setAlarmSubscription()
     this.setSubscribtions()
     this.loading = false
   }
@@ -179,46 +180,50 @@ export class ListComponent implements OnInit, OnDestroy{
       })
   }
 
-  setAlarmSubscription(){
-    this.arregloPacientes.forEach(paciente =>{
-      let id = paciente.id_habitacion
-      let alarmSubscription = this.eventMqtt.subscribeToAlarm(id).subscribe((data: IMqttMessage) => {
-        let item = JSON.parse(data.payload.toString())
-        console.log(item);
-        switch(item.sensor){
-          case 'Oxigenacion':
-            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.oxig.alerta = true
-            break;
-          case 'Frecuencia Cardiaca':
-            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.freqCard.alerta = true
-            break;
-          case 'Presion Arterial Sistolica':
-            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtsist.alerta = true
-            break;
-          case 'Presion Arterial Diastolica':
-            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtdiast.alerta = true
-            break;
-          case 'Temperatura Corporal':
-            this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.tempCorp.alerta = true
-            break;
-        }
-        this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.alarm = true
-      })
-      this.arregloAlarmas.push(alarmSubscription)
-      console.log(alarmSubscription);         
-      
-    })
+  setAlarmSubscription(roomId: number){
+      let id = roomId
+      let alarma: alarma = {
+        habitacion: id,
+        alarma: this.eventMqtt.subscribeToAlarm(id).subscribe((data: IMqttMessage) => {
+          let item = JSON.parse(data.payload.toString())
+          console.log(item);
+          switch(item.sensor){
+            case 'Oxigenacion':
+              this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.oxig.alerta = true
+              break;
+            case 'Frecuencia Cardiaca':
+              this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.freqCard.alerta = true
+              break;
+            case 'Presion Arterial Sistolica':
+              this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtsist.alerta = true
+              break;
+            case 'Presion Arterial Diastolica':
+              this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.presArtdiast.alerta = true
+              break;
+            case 'Temperatura Corporal':
+              this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.tempCorp.alerta = true
+              break;
+          }
+          this.arregloPacientes.find(pacient => pacient.id_habitacion == id)!.alarm = true
+        })
+      }
+      this.arregloAlarmas.push(alarma)
+      console.log(alarma);         
   }
 
   turnOffAlarm(roomId: number){
     this.eventMqtt.turnOffSirenHorn(roomId)
       .then(result => {
+        this.arregloAlarmas.find(alarma => alarma.habitacion == roomId)?.alarma.unsubscribe()
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.alarm = false
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.oxig.alerta = false
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.freqCard.alerta = false
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.presArtdiast.alerta = false
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.presArtsist.alerta = false
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.tempCorp.alerta = false
+        setTimeout(()=>{
+          this.setAlarmSubscription(roomId)
+        },10000)
         console.log(result);
       })
   }

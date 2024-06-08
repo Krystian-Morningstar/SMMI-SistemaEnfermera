@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class StadisticsService {
   baseUrl = ''
 
   constructor(private http: HttpClient) {
-    this.baseUrl = "http://192.168.137.137:3000/api/sensores/estadi"
+    this.baseUrl = `${environment.url_api}/api/sensores/estadi`
   }
 
   getStadistics(idRoom: number, topic: string): Observable<any>{
