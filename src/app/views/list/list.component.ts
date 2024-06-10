@@ -223,7 +223,7 @@ export class ListComponent implements OnInit, OnDestroy{
         this.arregloPacientes.find(pacient => pacient.id_habitacion == roomId)!.tempCorp.alerta = false
         setTimeout(()=>{
           this.setAlarmSubscription(roomId)
-        },10000)
+        },300000)
         console.log(result);
       })
   }

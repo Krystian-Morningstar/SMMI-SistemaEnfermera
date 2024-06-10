@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { reporte } from 'src/app/models/report.model';
@@ -11,7 +11,16 @@ import { Subscription } from 'rxjs';
   templateUrl: './pacient-reports.component.html',
   styleUrls: ['./pacient-reports.component.css']
 })
+
 export class PacientReportsComponent implements OnInit, OnDestroy{
+
+  @HostListener('window:popstate', ['$event'])
+  onBrowserBackBtnClose(event: Event) {
+    console.log('back button pressed');
+    event.preventDefault(); 
+    this.ruta.navigate([`details/${this.ingresoId}`], {replaceUrl:true});
+}
+
 
   blankspace = false
   ingresoId= '';
@@ -21,6 +30,7 @@ export class PacientReportsComponent implements OnInit, OnDestroy{
   constructor(private reportsService: ReportsService, route: ActivatedRoute, private ruta: Router){
     this.ingresoId = route.snapshot.params['id'];
   }
+  
   ngOnDestroy(): void {
     this.subscription?.unsubscribe
   }
