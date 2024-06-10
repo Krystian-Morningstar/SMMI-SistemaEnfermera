@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    url_api: 'http://localhost:3000',
-    url_mqtt: '127.0.0.1'
+    url_api: 'http://192.168.137.1:3000',
+    url_mqtt: '192.168.137.1'
 }
